@@ -1,5 +1,5 @@
 <script>
-	import Item from './item.svelte';
+	import Item from '../util/games/item.svelte';
 </script>
 
 <div class="mx-2 my-4">

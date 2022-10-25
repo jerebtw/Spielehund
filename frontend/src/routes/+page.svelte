@@ -1,7 +1,7 @@
 <script>
-	import Navbar from '../comps/navbar.svelte';
-	import Categories from '../comps/index/categories.svelte';
-	import GamesList from '../comps/index/games/list.svelte';
+	import Navbar from '../components/navbar.svelte';
+	import Categories from '../components/index/categories.svelte';
+	import GamesList from '../components/index/gamelist.svelte';
 </script>
 
 <svelte:head>
