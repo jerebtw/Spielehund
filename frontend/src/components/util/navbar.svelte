@@ -1,6 +1,6 @@
 <script>
-	import Hambuger from './icon/hambuger.svelte';
-	import Icon from './icon/icon.svelte';
+	import Hambuger from "./icon/hambuger.svelte";
+	import Icon from "./icon/icon.svelte";
 </script>
 
 <!-- TODO -->
@@ -15,16 +15,15 @@
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<ul
 				tabindex="0"
-				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-			>
+				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
 				<li><a href="/todo">TODO</a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="navbar-center">
 		<a class="btn btn-ghost normal-case text-3xl font-bold" href="/">
-			<Icon/>
-			<div class="mx-1"/>
+			<Icon />
+			<div class="mx-1" />
 			Spielehund
 		</a>
 	</div>
