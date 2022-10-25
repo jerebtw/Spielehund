@@ -8,6 +8,6 @@
 
 <div class="carousel w-full">
 	{#each slides as slide (slide.id)}
-		<Slide id={`slide-${slide.id}`} src={slide.src} />
+		<Slide id={`slide-${slide.id}`} prev="slide-0" next="slide-0" src={slide.src} />
 	{/each}
 </div>

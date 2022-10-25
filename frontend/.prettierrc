@@ -2,6 +2,7 @@
 	"useTabs": true,
 	"singleQuote": false,
 	"bracketSameLine": true,
+	"svelteSortOrder": "scripts-markup-styles-options",
 	"endOfLine": "lf",
 	"trailingComma": "none",
 	"printWidth": 100,

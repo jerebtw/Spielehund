@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let game: { id: string; name: string };
+	import type { GameData } from "src/utils/types";
+
+	export let game: GameData;
 
 	function redirectToGamepage() {
 		window.location.href = `/game?id=${game.id}`;

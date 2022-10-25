@@ -5,15 +5,15 @@
 		history.back();
 	}
 	function redirectToStart() {
-		window.location.href = "/UwU/Game";
+		window.location.href = "/Cheese/Game";
 	}
 	function redirectToSettings() {
-		window.location.href = "/UwU/Settings";
+		window.location.href = "/Cheese/Settings";
 	}
 </script>
 
 <svelte:head>
-	<title>UwU | Spielehund</title>
+	<title>Cheese | Spielehund</title>
 </svelte:head>
 
 <Navbar />

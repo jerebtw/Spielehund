@@ -1,6 +1,8 @@
 <script>
 	import Hambuger from "./icon/hambuger.svelte";
 	import Icon from "./icon/icon.svelte";
+
+	export let loading = false;
 </script>
 
 <!-- TODO -->
@@ -9,7 +11,7 @@
 		<div class="dropdown">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<!-- svelte-ignore a11y-label-has-associated-control -->
-			<label tabindex="0" class="btn btn-ghost btn-circle">
+			<label tabindex="0" class="btn btn-ghost btn-circle" disabled={loading}>
 				<Hambuger />
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -30,7 +32,7 @@
 	<div class="navbar-end">
 		<div class="avatar placeholder">
 			<div class="bg-secondary-focus text-secondary-content rounded-full w-10">
-				<span class="text-1xl">K</span>
+				<span class="text-1xl">{loading ? "" : "T"}</span>
 			</div>
 		</div>
 	</div>
