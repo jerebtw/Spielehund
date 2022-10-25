@@ -1,6 +1,6 @@
 <script>
-	import Hambuger from './util/icon/hambuger.svelte';
-	import Icon from './util/icon/icon.svelte';
+	import Hambuger from './icon/hambuger.svelte';
+	import Icon from './icon/icon.svelte';
 </script>
 
 <!-- TODO -->
