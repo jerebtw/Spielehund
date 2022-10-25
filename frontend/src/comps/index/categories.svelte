@@ -23,7 +23,8 @@
 	];
 </script>
 
-<div class="flex m-2 space-x-2 bg-base-100 whitespace-nowrap overflow-auto ">
+
+<div class="flex m-2 space-x-2  whitespace-nowrap overflow-auto ">
 	{#each categories as category}
 		<Badge name={category} />
 	{/each}

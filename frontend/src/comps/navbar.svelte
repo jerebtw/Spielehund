@@ -1,5 +1,6 @@
 <script>
 	import Hambuger from './icon/hambuger.svelte';
+	import Icon from './icon/icon.svelte';
 </script>
 
 <!-- TODO -->
@@ -21,7 +22,11 @@
 		</div>
 	</div>
 	<div class="navbar-center">
-		<a class="btn btn-ghost normal-case text-xl font-bold" href="/">Spielehund</a>
+		<a class="btn btn-ghost normal-case text-3xl font-bold" href="/">
+			<Icon/>
+			<div class="mx-1"/>
+			Spielehund
+		</a>
 	</div>
 	<div class="navbar-end">
 		<div class="avatar placeholder">
