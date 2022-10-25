@@ -2,7 +2,7 @@
 	export let id: string;
 
 	function redirectGamepage() {
-		window.location.href = `/game/${id}`;
+		window.location.href = `/game?id=${id}`;
 	}
 </script>
 
