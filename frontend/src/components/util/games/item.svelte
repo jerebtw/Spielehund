@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let game: { id: string; name: string };
 
-	function redirectGamepage() {
+	function redirectToGamepage() {
 		window.location.href = `/game?id=${game.id}`;
 	}
 </script>
@@ -12,7 +12,7 @@
 		<h2 class="card-title text-primary-content">{game.name}</h2>
 		<p />
 		<div class="card-actions justify-end">
-			<button class="btn btn-primary" on:click={redirectGamepage}>Spielen</button>
+			<button class="btn btn-primary" on:click={redirectToGamepage}>Ansehen</button>
 		</div>
 	</div>
 </div>

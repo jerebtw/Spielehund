@@ -2,4 +2,4 @@
 	export let name: string;
 </script>
 
-<div class="badge badge-neutral flex-auto">{name}</div>
+<button class="badge badge-neutral flex-auto">{name}</button>

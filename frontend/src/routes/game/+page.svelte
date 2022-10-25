@@ -3,10 +3,10 @@
 	import Carousel from "../../components/game/carousel.svelte";
 
 	export let id: string;
-	export let game: string = "UWU";
+	export let name: string = "UwU";
 
-	function redirectGamepage() {
-		window.location.href = `/game?id=${id}`;
+	function redirectToGame() {
+		window.location.href = `/${name}`;
 	}
 </script>
 
@@ -17,13 +17,13 @@
 <Navbar />
 
 <div class="flex flex-col">
-	<span class="text-center font-bold text-6xl my-10 text-primary-content">{game}</span>
+	<span class="text-center font-bold text-6xl my-10 text-primary-content">{name}</span>
 
 	<div class="flex mx-32">
 		<Carousel />
 
 		<div class="flex flex-col items-center ml-20 max-w-[400px]">
-			<button class="btn btn-primary mb-10 min-w-[200px]" on:click={redirectGamepage}>
+			<button class="btn btn-primary mb-10 min-w-[200px]" on:click={redirectToGame}>
 				Spielen
 			</button>
 			Spielbeschreibung:
