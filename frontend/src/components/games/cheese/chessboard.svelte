@@ -3,7 +3,7 @@
 	import type { ChessBoardElement } from "chessboard-element";
 	import { onMount } from "svelte";
 
-  onMount(check)
+	onMount(check);
 
 	function check() {
 		const board: ChessBoardElement = document.querySelector("#board3");
