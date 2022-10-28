@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import mysql from "mysql2/promise";
 
-async function connectDB() {
+async function connectDB(DB_HOST: string) {
   const connection = await mysql.createConnection({
-    host: "192.168.1.169",
+    host: DB_HOST,
     user: "root",
     password: "test",
     database: "Schule",

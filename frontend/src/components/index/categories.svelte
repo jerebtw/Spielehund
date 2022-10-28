@@ -1,5 +1,5 @@
 <script>
-	import Badge from "./badge.svelte";
+	import { Badge } from "flowbite-svelte";
 
 	//TODO: get from backend
 	let categories = [
@@ -23,8 +23,8 @@
 	];
 </script>
 
-<div class="flex mx-6 my-4 space-x-2  whitespace-nowrap overflow-auto ">
+<div class="mx-6 my-2 space-x-2 whitespace-nowrap overflow-auto">
 	{#each categories as category}
-		<Badge name={category} />
+		<Badge color="purple">{category}</Badge>
 	{/each}
 </div>

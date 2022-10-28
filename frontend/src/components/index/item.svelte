@@ -1,20 +1,16 @@
 <script lang="ts">
+	import { Button, Card } from "flowbite-svelte";
 	import type { GameData } from "src/utils/types";
-
 	export let game: GameData;
-
-	function redirectToGamepage() {
-		window.location.href = `/game?id=${game.id}`;
-	}
 </script>
 
-<div class="card w-64 h-80 bg-base-100 shadow-xl image-full">
-	<figure><img class="blur-sm" src="uwu.png" alt="Shoes" /></figure>
-	<div class="card-body items-center text-center">
-		<h2 class="card-title text-primary-content">{game.name}</h2>
-		<p />
-		<div class="card-actions justify-end">
-			<button class="btn btn-primary" on:click={redirectToGamepage}>Ansehen</button>
+<div class="max-w-[16rem]">
+	<Card href="/game?id={game.id}" img="uwu.png">
+		<div class="flex flex-col items-center">
+			<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+				{game.name}
+			</h5>
+			<Button href="/{game.name}">Spielen</Button>
 		</div>
-	</div>
+	</Card>
 </div>

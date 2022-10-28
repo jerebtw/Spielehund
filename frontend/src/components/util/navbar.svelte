@@ -1,39 +1,27 @@
 <script>
-	import Hambuger from "./icon/hambuger.svelte";
 	import Icon from "./icon/icon.svelte";
+	import { Navbar, NavBrand, Avatar, DarkMode, Spinner } from "flowbite-svelte";
 
 	export let loading = false;
 </script>
 
-<!-- TODO -->
-<div class="navbar bg-neutral text-neutral-content">
-	<div class="navbar-start">
-		<div class="dropdown">
-			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<!-- svelte-ignore a11y-label-has-associated-control -->
-			<label tabindex="0" class="btn btn-ghost btn-circle" disabled={loading}>
-				<Hambuger />
-			</label>
-			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<ul
-				tabindex="0"
-				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-				<li><a href="/todo">TODO</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="navbar-center">
-		<a class="btn btn-ghost normal-case text-3xl font-bold" href="/">
-			<Icon />
-			<div class="mx-1" />
+<Navbar>
+	<NavBrand href="/">
+		<Icon />
+		<div class="px-1" />
+		<span class="self-center whitespace-nowrap text-xl font-bold dark:text-white">
 			Spielehund
-		</a>
+		</span>
+	</NavBrand>
+	<div class="flex gap-2">
+		<Avatar>
+			{#if loading}
+				<Spinner color="gray" />
+			{:else}
+				TK
+			{/if}
+		</Avatar>
+		<DarkMode
+			btnClass="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" />
 	</div>
-	<div class="navbar-end">
-		<div class="avatar placeholder">
-			<div class="bg-secondary-focus text-secondary-content rounded-full w-10">
-				<span class="text-1xl">{loading ? "" : "T"}</span>
-			</div>
-		</div>
-	</div>
-</div>
+</Navbar>

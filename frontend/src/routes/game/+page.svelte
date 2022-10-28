@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Navbar from "src/components/util/navbar.svelte";
-	import Carousel from "src/components/game/carousel.svelte";
 	import Icon404 from "src/components/util/icon/Icon404.svelte";
 	import Loading from "src/components/util/loading.svelte";
 	import { page } from "$app/stores";
 	import { socket } from "src/utils/stores";
 	import type { GameData } from "src/utils/types";
+	import { Alert, Button, Carousel, CarouselTransition } from "flowbite-svelte";
 
 	let id = $page.url.searchParams.get("id");
 	let game: GameData | undefined;
@@ -23,18 +23,10 @@
 
 		game = data;
 	});
-
-	function redirectToGame() {
-		window.location.href = `/${game?.name}`;
-	}
-
-	function redirectToHome() {
-		window.location.href = "/";
-	}
 </script>
 
 <svelte:head>
-	<title>{name} | Spielehund</title>
+	<title>{error ? "404" : game?.name || "..."} | Spielehund</title>
 </svelte:head>
 
 <Navbar />
@@ -43,30 +35,40 @@
 	<Loading />
 {:else if error}
 	<div class="grid place-items-center m-32">
-		<div class="flex flex-col items-center">
+		<div class="flex flex-col items-center gap-4">
 			<Icon404 width={200} height={200} />
-			<div class="alert alert-error shadow-lg">
-				<div>
-					<span>Dieses Spiel existiert nicht!</span>
-				</div>
-				<div class="flex-none">
-					<button class="btn btn-sm" on:click={redirectToHome}>Zurück</button>
-				</div>
-			</div>
+			<Alert color="red">
+				<span slot="icon"><Icon404 currentColor /></span>
+				<span class="text-lg font-medium">Dieses Spiel existiert nicht!</span>
+			</Alert>
+			<Button color="red" href="/">Zurück</Button>
 		</div>
 	</div>
 {:else}
 	<div class="flex flex-col">
-		<span class="text-center font-bold text-6xl my-10 text-primary-content">{game?.name}</span>
+		<span class="text-center font-bold text-6xl my-10 text-primary-content dark:text-white">
+			{game?.name}
+		</span>
 
-		<div class="flex mx-32">
-			<Carousel slides={[{ id: 1, src: game?.imageSrc || "" }]} />
+		<div class="mx-2 lg:mx-16 lg:flex lg:justify-center">
+			<div class="min-w-[480px] max-w-[720px] hidden lg:block">
+				<Carousel
+					images={[
+						{ id: 0, imgurl: game?.imageSrc },
+						{ id: 1, imgurl: game?.imageSrc }
+					]}
+					showThumbs={false}
+					showCaptions={false}
+					loop
+					duration={3000} />
+			</div>
+			<div class="flex flex-col items-center dark:text-white mx-20 lg:mx-10 lg:max-w-[400px]">
+				<Button href="/{game?.name}" size="xl">Spielen</Button>
 
-			<div class="flex flex-col items-center ml-20 max-w-[400px]">
-				<button class="btn btn-primary mb-10 min-w-[200px]" on:click={redirectToGame}>
-					Spielen
-				</button>
+				<br />
+
 				Spielbeschreibung:
+
 				<br />
 
 				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor

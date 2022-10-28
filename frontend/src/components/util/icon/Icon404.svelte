@@ -2,12 +2,14 @@
 <script>
 	export let width = 24;
 	export let height = 24;
+	export let currentColor = false;
 </script>
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	{width}
 	{height}
+	class={currentColor ? "" : "dark:text-white"}
 	viewBox="0 0 24 24"
 	stroke-width="2"
 	stroke="currentColor"

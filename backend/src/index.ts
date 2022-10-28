@@ -33,7 +33,8 @@ process.on("uncaughtException", async (err, origin) => {
 dotenv.config();
 
 const PORT = env.get("PORT").default(3000).asPortNumber();
-const connection = await connectDB();
+const DB_HOST = env.get("DB_HOST").required().asString();
+const connection = await connectDB(DB_HOST);
 
 const app = express();
 const server = http.createServer(app);
