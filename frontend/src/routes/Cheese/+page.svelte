@@ -12,9 +12,11 @@
 </svelte:head>
 
 <Navbar />
-<div class="flex flex-col items-center text-center gap-4 w-screen">
+<div class="flex flex-col items-center text-center gap-2 w-screen buttons">
 	<P size="4xl">Hauptmenü</P>
-	<Button href="/Cheese/Game">Starten</Button>
-	<Button href="/Cheese/Settings">Einstellungen</Button>
-	<Button on:click={redirectBack}>Beenden</Button>
+	<Button color="light" href="/Cheese/Singleplayer">Singleplayer</Button>
+	<Button color="light" href="/Cheese/SingleplayerAI">Singleplayer gegen den Computer</Button>
+	<Button color="light" href="/Cheese/Multiplayer">Multiplayer</Button>
+	<Button color="light" href="/Cheese/Settings">Einstellungen</Button>
+	<Button color="red" on:click={redirectBack}>Beenden</Button>
 </div>

@@ -12,9 +12,9 @@
 </svelte:head>
 
 <Navbar />
-<div class="flex flex-col items-center text-center gap-4 w-screen">
+<div class="flex flex-col items-center text-center gap-2 w-screen buttons">
 	<P size="4xl">Hauptmenü</P>
-	<Button href="/UwU/Game">Starten</Button>
-	<Button href="/UwU/Settings">Einstellungen</Button>
+	<Button color="light" href="/UwU/Game">Starten</Button>
+	<Button color="light" href="/UwU/Settings">Einstellungen</Button>
 	<Button on:click={redirectBack}>Beenden</Button>
 </div>
