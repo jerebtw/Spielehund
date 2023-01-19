@@ -1,5 +1,6 @@
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import PocketBase from "npm:pocketbase";
+import { Application, Router } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 
 const pb = new PocketBase("https://schule-projekt-pocketbase.jerebtw.de");
 await pb.admins.authWithPassword(
@@ -71,3 +72,15 @@ console.log(records);
 // server.listen(PORT, () => {
 //   console.info(`listening on *:${PORT}`);
 // });
+
+const app = new Application();
+const router = new Router();
+router.get("/", (context) => {
+  context.response.body = "Hello world!";
+});
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+console.info(`Listening on ${PORT}`);
+await app.listen({ port: PORT });
