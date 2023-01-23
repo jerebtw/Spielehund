@@ -17,6 +17,7 @@ specifiers:
   eslint-plugin-svelte3: ^4.0.0
   flowbite: ^1.6.2
   flowbite-svelte: ^0.29.11
+  pocketbase: ^0.10.1
   postcss: ^8.4.21
   postcss-load-config: ^4.0.1
   prettier: ^2.8.3
@@ -34,6 +35,7 @@ dependencies:
   '@types/chess.js': 0.13.4
   chess.js: 1.0.0-beta.2
   chessboard-element: 1.2.0
+  pocketbase: 0.10.1
   socket.io-client: 4.5.4
 
 devDependencies:
@@ -1710,6 +1712,10 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /pocketbase/0.10.1:
+    resolution: {integrity: sha512-FMBhF+9o2AmdKJYbfz2qunnk4Q5/efYMRcukdQF49UfhsIuaSYl39fSPN1l880bYI4XAvDDeySAjK1MlxrK37A==}
+    dev: false
 
   /postcss-import/14.1.0_postcss@8.4.21:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
