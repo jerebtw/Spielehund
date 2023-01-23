@@ -4,23 +4,11 @@
 	import GamesList from "src/components/index/gamelist.svelte";
 	import Loading from "src/components/util/loading.svelte";
 	import ServerError from "src/components/util/serverError.svelte";
-	import { socket } from "src/utils/stores";
 	import type { GameData } from "src/utils/types";
+	import { currentUser, pb } from "src/utils/pocketbase";
 
 	let games: GameData[] = [];
-	let error = false;
-	let loading = true;
-
-	$socket?.emit("games", (result: boolean, data?: GameData[]) => {
-		loading = false;
-
-		if (!result || !data) {
-			error = true;
-			return;
-		}
-
-		games = data;
-	});
+	pb?.collection()
 </script>
 
 <svelte:head>

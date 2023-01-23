@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentUser, pb } from "src/utils/pocketbase";
+  import { Input, Label, Button } from 'flowbite-svelte';
 
   let username: string;
   let password: string;
@@ -37,18 +38,15 @@
   </p>
 {:else}
   <form on:submit|preventDefault>
-    <input
-      placeholder="Username"
-      type="text"
-      bind:value={username}
-    />
-
-    <input 
-      placeholder="Password" 
-      type="password" 
-      bind:value={password} 
-    />
-    <button on:click={signUp}>Sign Up</button>
-    <button on:click={login}>Login</button>
+    <div class="mb-6">
+      <Label for="email" class="mb-2">Email address</Label>
+      <Input type="email" id="email" placeholder="john.doe@company.com" required bind:value={username} />
+    </div>
+    <div class="mb-6">
+      <Label for="password" class="mb-2">Password</Label>
+      <Input type="password" id="password" placeholder="•••••••••" required bind:value={password} />
+    </div>
+    <Button on:click={login}>Login</Button>
+    <Button on:click={signUp}>Sign Up</Button>
   </form>
 {/if}
