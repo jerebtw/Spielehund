@@ -32,6 +32,7 @@ async function login() {
   
 </script>
 
+<div class="px-[30%] py-[5%]">
 <form on:submit|preventDefault>
     <div class="mb-6">
       <Label for="username" class="mb-2">Nutzername</Label>
@@ -46,8 +47,11 @@ async function login() {
       <Input type="password" id="password" placeholder="•••••••••" required bind:value={password} />
     </div>
     <div class="mb-6">
-      <Label for="password" class="mb-2">Passwort wiederholen</Label>
+      <Label for="password" class="mb-2">Passwort bestätigen</Label>
       <Input type="password" id="password" placeholder="•••••••••" required bind:value={passwordConfirm} />
     </div>
-    <Button on:click={signUp}>Sign Up</Button>
+    <div class="w-[100%] flex justify-center">
+    <Button color="purple" class="w-[15%]" on:click={signUp}>Sign Up</Button>
+    </div>
   </form>
+  </div>
