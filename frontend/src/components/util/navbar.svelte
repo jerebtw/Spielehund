@@ -1,6 +1,7 @@
 <script>
 	import Icon from "./icon/icon.svelte";
 	import { Navbar, NavBrand, Avatar, DarkMode, Spinner, Button } from "flowbite-svelte";
+	import { currentUser } from "src/utils/pocketbase"
 
 	export let loading = false;
 </script>
@@ -14,8 +15,13 @@
 		</span>
 	</NavBrand>
 	<div class="flex gap-2">
-		<Button href="Login">Login</Button>
-		<Button href="SignUp">Sign Up</Button>
+		{#if $currentUser}
+			<Button>Sign out</Button>
+		{:else}
+			<Button href="Login">Login</Button>
+			<Button href="SignUp">Sign Up</Button>
+		{/if}
+
 		<Avatar>
 			{#if loading}
 				<Spinner color="gray" />
