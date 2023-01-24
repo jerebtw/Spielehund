@@ -1,6 +1,6 @@
 <script>
 	import Icon from "./icon/icon.svelte";
-	import { Navbar, NavBrand, Avatar, DarkMode, Spinner } from "flowbite-svelte";
+	import { Navbar, NavBrand, Avatar, DarkMode, Spinner, Button } from "flowbite-svelte";
 
 	export let loading = false;
 </script>
@@ -14,6 +14,8 @@
 		</span>
 	</NavBrand>
 	<div class="flex gap-2">
+		<Button href="Login">Login</Button>
+		<Button href="SignUp">Sign Up</Button>
 		<Avatar>
 			{#if loading}
 				<Spinner color="gray" />
