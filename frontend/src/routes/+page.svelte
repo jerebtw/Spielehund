@@ -5,10 +5,29 @@
 	import Loading from "src/components/util/loading.svelte";
 	import ServerError from "src/components/util/serverError.svelte";
 	import type { GameData } from "src/utils/types";
-	import { currentUser, pb } from "src/utils/pocketbase";
+	import { pb } from "src/utils/pocketbase";
+	import { onMount } from "svelte";
 
+	async function getGames() {
+		const games = await pb.collection("games").getFullList<GameData>(undefined, {
+      sort: 'created',
+    });
+		console.log(games);
+		return games;
+	}
+
+	let loading = true;
+	let error = false;
 	let games: GameData[] = [];
-	pb?.collection()
+	onMount(async () => {
+		try {
+			games = await getGames();
+			loading = false;
+		} catch (e) {
+			console.error(e);
+			error = true;
+		}
+	})
 </script>
 
 <svelte:head>
