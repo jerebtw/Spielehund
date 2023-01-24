@@ -4,6 +4,8 @@
 
   let username: string;
   let password: string;
+  let email: string;
+  let passwordConfirm: string;
 
   async function login() {
     const user = await pb.collection('users').authWithPassword(username, password);
@@ -11,19 +13,8 @@
   }
 
   async function signUp() {
-    try {
-      const data = {
-        username,
-        password,
-        passwordConfirm: password,
-        name: 'hi mom!',
-      };
-      const createdUser = await pb.collection('users').create(data);
-      await login();
-    } catch (err) {
-      console.error(err)
-    }
-  }
+    
+}
 
   function signOut() {
     pb.authStore.clear();
@@ -39,14 +30,14 @@
 {:else}
   <form on:submit|preventDefault>
     <div class="mb-6">
-      <Label for="email" class="mb-2">Email address</Label>
-      <Input type="email" id="email" placeholder="john.doe@company.com" required bind:value={username} />
+      <Label for="email" class="mb-2">Email Adresse</Label>
+      <Input type="email" id="email" placeholder="ben.dover@company.com" required bind:value={email} />
     </div>
     <div class="mb-6">
-      <Label for="password" class="mb-2">Password</Label>
+      <Label for="password" class="mb-2">Passwort</Label>
       <Input type="password" id="password" placeholder="•••••••••" required bind:value={password} />
     </div>
     <Button on:click={login}>Login</Button>
-    <Button on:click={signUp}>Sign Up</Button>
+    <Button href="SignUp">Sign Up</Button>
   </form>
 {/if}
