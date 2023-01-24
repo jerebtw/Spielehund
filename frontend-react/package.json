@@ -1,0 +1,46 @@
+{
+  "private": true,
+  "author": "Jerebtw",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "lint": "next lint",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@babel/core": "^7.20.12",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@mantine/carousel": "^5.10.1",
+    "@mantine/core": "^5.10.1",
+    "@mantine/dropzone": "^5.10.1",
+    "@mantine/form": "^5.10.1",
+    "@mantine/hooks": "^5.10.1",
+    "@mantine/next": "^5.10.1",
+    "@mantine/notifications": "^5.10.1",
+    "@tabler/icons-react": "^2.0.0",
+    "@tanstack/react-query": "^4.23.0",
+    "cookies-next": "^2.1.1",
+    "dayjs": "^1.11.7",
+    "embla-carousel-react": "^7.0.9",
+    "lodash": "^4.17.21",
+    "marked": "^4.2.12",
+    "next": "^13.1.5",
+    "pocketbase": "^0.10.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-virtuoso": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
+    "eslint": "^8.32.0",
+    "eslint-config-next": "13.1.5",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "typescript": "4.9.4"
+  }
+}
