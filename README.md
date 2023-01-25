@@ -1,4 +1,4 @@
 # Schule-Projekt
 
-Frontend: SvelteKit
+Frontend: Next.js
 Backend: NodeJS
