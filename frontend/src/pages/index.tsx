@@ -1,4 +1,4 @@
-import { Badge, Box, Group, SimpleGrid } from "@mantine/core";
+import { Box, SimpleGrid } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Record } from "pocketbase";
 import { useContext } from "react";
@@ -55,13 +55,6 @@ export default function Index() {
         <>Error</>
       ) : (
         <>
-          <Group p={8} pb={0} spacing={4}>
-            {genresQuery?.data?.map?.((genre) => (
-              <Badge key={genre.id} color="violet" variant="filled">
-                {genre.name}
-              </Badge>
-            ))}
-          </Group>
           <Box p={8}>
             <SimpleGrid
               breakpoints={[

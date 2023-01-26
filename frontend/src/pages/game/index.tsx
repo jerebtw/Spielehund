@@ -75,25 +75,29 @@ export default function GamePage() {
               </>
             )}
 
-            <Title order={3}>Bilder:</Title>
-            <Carousel
-              sx={{ maxWidth: 800 }}
-              height="100%"
-              mx="auto"
-              withIndicators
-              loop>
-              {gameQuery?.data?.gameImages?.map((image) => (
-                <Carousel.Slide key={image}>
-                  <Image
-                    src={pocketBase.getFileUrl(gameQuery.data, image, {
-                      thumb: "0x300",
-                    })}
-                    style={{ objectFit: "cover" }}
-                    alt={gameQuery.data.name}
-                  />
-                </Carousel.Slide>
-              ))}
-            </Carousel>
+            {gameQuery.data?.gameImages?.length !== 0 && (
+              <>
+                <Title order={3}>Bilder:</Title>
+                <Carousel
+                  sx={{ maxWidth: 800 }}
+                  height="100%"
+                  mx="auto"
+                  withIndicators
+                  loop>
+                  {gameQuery?.data?.gameImages?.map((image) => (
+                    <Carousel.Slide key={image}>
+                      <Image
+                        src={pocketBase.getFileUrl(gameQuery.data, image, {
+                          thumb: "0x300",
+                        })}
+                        style={{ objectFit: "cover" }}
+                        alt={gameQuery.data.name}
+                      />
+                    </Carousel.Slide>
+                  ))}
+                </Carousel>
+              </>
+            )}
 
             <Button color="violet">Spielen</Button>
           </Stack>
