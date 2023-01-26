@@ -80,7 +80,6 @@ export default function GamePage() {
               sx={{ maxWidth: 800 }}
               height="100%"
               mx="auto"
-              withControls={false}
               withIndicators
               loop>
               {gameQuery?.data?.gameImages?.map((image) => (
