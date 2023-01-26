@@ -14,8 +14,8 @@ export interface GameData extends Record {
   titleImage: string;
   gameImages: string[];
   expand: {
-    genre: GenreData[]
-  }
+    genre: GenreData[] | undefined;
+  };
 }
 
 export interface GenreData extends Record {
