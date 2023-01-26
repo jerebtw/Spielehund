@@ -141,13 +141,13 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
         <title>Spielehund</title>
       </Head>
       <Header height={HEADER_HEIGHT} className={classes.root}>
-        <Container className={classes.header}>
+        <Group py="15px">
           <Group>
             <IconPlayCard size={32} />
             <Title order={3}>Spielehund</Title>
           </Group>
 
-          <Button leftIcon={<IconSearch {...IconProps}/>} variant="default" color="violet" radius="xl" size="md" w="15%">Search</Button>
+          <Button leftIcon={<IconSearch {...IconProps}/>} variant="default" color="violet" radius="xl" size="md" w="60%">Search</Button>
 
           <Group spacing={5} className={classes.links}>
             {!auth ? showLogin && <LoginButtons /> : <UserButton />}
@@ -180,7 +180,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
               </Paper>
             )}
           </Transition>
-        </Container>
+        </Group>
       </Header>
     </>
   );
