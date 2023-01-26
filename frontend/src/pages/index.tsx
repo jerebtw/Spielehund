@@ -55,15 +55,24 @@ export default function Index() {
         <>Error</>
       ) : (
         <>
-          <Group p={8} spacing={4}>
+          <Group p={8} pb={0} spacing={4}>
             {genresQuery?.data?.map?.((genre) => (
-              <Badge key={genre.id} variant="filled">
+              <Badge key={genre.id} color="violet" variant="filled">
                 {genre.name}
               </Badge>
             ))}
           </Group>
           <Box p={8}>
-            <SimpleGrid cols={7}>
+            <SimpleGrid
+              breakpoints={[
+                { minWidth: 380, cols: 2 },
+                { minWidth: 700, cols: 3 },
+                { minWidth: 1000, cols: 4 },
+                { minWidth: 1200, cols: 5 },
+                { minWidth: 1300, cols: 6 },
+                { minWidth: 1400, cols: 7 },
+                { minWidth: 1500, cols: 8 },
+              ]}>
               {gamesQuery.data?.map((game) => (
                 <GameItem key={game.id} game={game} />
               ))}

@@ -1,4 +1,14 @@
-import { Button, Card, Image, Stack, Title } from "@mantine/core";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Group,
+  Image,
+  ScrollArea,
+  Stack,
+  Title,
+} from "@mantine/core";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { GameData } from "../../pages";
@@ -7,6 +17,11 @@ import { PocketBaseContext } from "../Pocketbase";
 export default function GameItem(props: { game: GameData }) {
   const router = useRouter();
   const { pocketBase } = useContext(PocketBaseContext);
+  const genres: { id: string; name: string }[] =
+    props.game.expand?.genre?.map((item: { id: string; name: string }) => ({
+      id: item.id,
+      name: item.name,
+    })) || [];
 
   return (
     <Card withBorder>
@@ -24,7 +39,21 @@ export default function GameItem(props: { game: GameData }) {
       <Stack spacing={8} mt={8}>
         <Title order={4}>{props.game?.name}</Title>
 
-        <Button fullWidth onClick={() => router.push("/lol")}>
+        {genres.length !== 0 ? (
+          <ScrollArea>
+            <Group spacing={4} noWrap>
+              {genres.map((genre) => (
+                <Badge key={props.game.id + genre.id} color="violet">
+                  {genre.name}
+                </Badge>
+              ))}
+            </Group>
+          </ScrollArea>
+        ) : (
+          <Box h={20} />
+        )}
+
+        <Button color="violet" onClick={() => router.push("/lol")} fullWidth>
           Spielen
         </Button>
       </Stack>

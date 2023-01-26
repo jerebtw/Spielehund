@@ -22,10 +22,12 @@ type Register = ({
 
 type Logout = () => void;
 
+type AuthRecord = Record & { email: string; username: string; xp: number };
+
 export const PocketBaseContext = React.createContext<{
   loading: boolean;
   pocketBase: PocketBase | undefined;
-  auth: Record | undefined;
+  auth: AuthRecord | undefined;
   login: Login | undefined;
   register: Register | undefined;
   logout: Logout | undefined;
@@ -41,14 +43,14 @@ export const PocketBaseContext = React.createContext<{
 export function PocketBaseProvider(props: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [pocketBase, setPocketBase] = useState<PocketBase>();
-  const [auth, setAuth] = useState<Record>();
+  const [auth, setAuth] = useState<AuthRecord>();
 
   useEffect(() => {
     const _pocketBase = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
     setPocketBase(_pocketBase);
 
     const unsubscribe = _pocketBase.authStore.onChange((_token, auth) => {
-      setAuth(auth as Record);
+      setAuth(auth as AuthRecord);
       setLoading(false);
     }, true);
 

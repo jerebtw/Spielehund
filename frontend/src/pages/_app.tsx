@@ -2,7 +2,7 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   Global,
-  MantineProvider,
+  MantineProvider
 } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

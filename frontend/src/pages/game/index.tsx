@@ -6,18 +6,11 @@ import {
   Container,
   Group,
   Image,
-  Paper,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
-import {
-  IconArrowBack,
-  IconArrowForward,
-  IconArrowNarrowLeft,
-  IconArrowNarrowRight,
-  IconMoodSad,
-} from "@tabler/icons-react";
+import { IconArrowBack, IconMoodSad } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
@@ -75,26 +68,35 @@ export default function GamePage() {
               <Title>{gameQuery.data.name}</Title>
             </Center>
 
-            <Text>{gameQuery.data.description}</Text>
+            {gameQuery.data.description && (
+              <>
+                <Title order={3}>Beschreibung:</Title>
+                <Text>{gameQuery.data.description}</Text>
+              </>
+            )}
 
+            <Title order={3}>Bilder:</Title>
             <Carousel
-              previousControlIcon={<IconArrowNarrowLeft {...IconProps} />}
-              nextControlIcon={<IconArrowNarrowRight {...IconProps} />}
-              sx={{ maxWidth: 500 }}
+              sx={{ maxWidth: 800 }}
+              height="100%"
               mx="auto"
+              withControls={false}
               withIndicators
-              height={300}>
+              loop>
               {gameQuery?.data?.gameImages?.map((image) => (
                 <Carousel.Slide key={image}>
                   <Image
                     src={pocketBase.getFileUrl(gameQuery.data, image, {
-                      thumb: " 0x300",
+                      thumb: "0x300",
                     })}
+                    style={{ objectFit: "cover" }}
                     alt={gameQuery.data.name}
                   />
                 </Carousel.Slide>
               ))}
             </Carousel>
+
+            <Button color="violet">Spielen</Button>
           </Stack>
         </Container>
       )}

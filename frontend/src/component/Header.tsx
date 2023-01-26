@@ -1,16 +1,19 @@
 import {
   ActionIcon,
   Burger,
+  Button,
+  Container,
+  createStyles,
   Group,
   Header,
-  Title,
-  createStyles,
-  useMantineColorScheme,
-  Container,
+  HoverCard,
+  Menu,
   Paper,
-  Transition,
-  Button,
   Stack,
+  Text,
+  Title,
+  Transition,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
@@ -19,11 +22,12 @@ import {
   IconMoon,
   IconPlayCard,
   IconSun,
+  IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { PocketBaseContext } from "./Pocketbase";
 
 export const IconProps = {
@@ -129,7 +133,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
           </Group>
 
           <Group spacing={5} className={classes.links}>
-            {!auth ? showLogin && <LoginButtons /> : <LogoutButton />}
+            {!auth ? showLogin && <LoginButtons /> : <UserButton />}
             <ColorButton />
           </Group>
           <Burger
@@ -153,7 +157,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
                       </Group>
                     )
                   ) : (
-                    <LogoutButton />
+                    <UserButton />
                   )}
                 </Stack>
               </Paper>
@@ -188,25 +192,36 @@ function ColorButton({ button }: { button?: boolean }) {
   );
 }
 
-function LogoutButton() {
-  const { logout } = useContext(PocketBaseContext);
+function UserButton() {
+  const { auth, logout } = useContext(PocketBaseContext);
   const router = useRouter();
 
   return (
-    <Button
-      variant="default"
-      leftIcon={<IconLogin {...IconProps} />}
-      onClick={() => {
-        logout();
-        showNotification({
-          title: "Abgemeldet",
-          message: "Du wurdest erfolgreich abgemeldet",
-          color: "green",
-        });
-        router.push("/");
-      }}>
-      Logout
-    </Button>
+    <Menu shadow="md" withArrow>
+      <Menu.Target>
+        <Button variant="default" leftIcon={<IconUser {...IconProps} />}>
+          {auth?.username}
+        </Button>
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Text px={8} py={4} size="sm">{`E-Mail: ${auth?.email}`}</Text>
+        <Text px={8} py={4} size="sm">{`XP: ${auth?.xp || "0"}`}</Text>
+        <Menu.Item
+          icon={<IconLogin {...IconProps} />}
+          onClick={() => {
+            logout();
+            showNotification({
+              title: "Abgemeldet",
+              message: "Du wurdest erfolgreich abgemeldet",
+              color: "green",
+            });
+            router.push("/");
+          }}
+          color="red">
+          Logout
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
   );
 }
 
