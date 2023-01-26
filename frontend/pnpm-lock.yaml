@@ -11,7 +11,7 @@ specifiers:
   '@mantine/hooks': ^5.10.2
   '@mantine/next': ^5.10.2
   '@mantine/notifications': ^5.10.2
-  '@tabler/icons-react': ^2.1.0
+  '@tabler/icons-react': ^2.1.1
   '@tanstack/react-query': ^4.23.0
   '@types/node': ^18.11.18
   '@types/react': ^18.0.27
@@ -44,7 +44,7 @@ dependencies:
   '@mantine/hooks': 5.10.2_react@18.2.0
   '@mantine/next': 5.10.2_qoprtljvsltba6pjuevay7hrvy
   '@mantine/notifications': 5.10.2_yzf4d63xstafd7ya36kewhvvjm
-  '@tabler/icons-react': 2.1.0_react@18.2.0
+  '@tabler/icons-react': 2.1.1_react@18.2.0
   '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
   cookies-next: 2.1.1
   dayjs: 1.11.7
@@ -937,18 +937,18 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@tabler/icons-react/2.1.0_react@18.2.0:
-    resolution: {integrity: sha512-0fAGKONUPFJADmnAnsvNggCRpll5AohbktpEvXXGlHC4qgNR+AUrgNRRby+qTqCJb+ZLu6I137HIWEKHoJDHnw==}
+  /@tabler/icons-react/2.1.1_react@18.2.0:
+    resolution: {integrity: sha512-nFwt6xT1LQQV+sHobeHEI8ccnRYVp55u5CPLUVCUMqx1rg4EvTFus6pRCKRWsJeIulRaL63ASlgke0tRotbCiw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@tabler/icons': 2.1.0
+      '@tabler/icons': 2.1.1
       prop-types: 15.8.1
       react: 18.2.0
     dev: false
 
-  /@tabler/icons/2.1.0:
-    resolution: {integrity: sha512-pvDUqR/Vu8K8gwRgie1LyM5Ob03eChm/eKFbp+crgXcKHy8m+eGfhoNqzQfr8bc5YPofJD1lht3O/YdIYbFByA==}
+  /@tabler/icons/2.1.1:
+    resolution: {integrity: sha512-mg3ggGdTz0KYnombTj3Ur1RsLGMF5j0f+SxLvVBNlt+a4Qb4Ml++7NHWy7pBi6RWpqyroywwkvBeMutnJu9HfQ==}
     dev: false
 
   /@tanstack/query-core/4.22.4:
