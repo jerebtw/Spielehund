@@ -21,13 +21,16 @@ import {
   IconLogin,
   IconMoon,
   IconPlayCard,
+  IconSearch,
   IconSun,
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
 import { useContext } from "react";
+import { GameData } from "../pages";
 import { PocketBaseContext } from "./Pocketbase";
 
 export const IconProps = {
@@ -118,7 +121,19 @@ const useStyles = createStyles((theme) => ({
 export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
-  const { auth } = useContext(PocketBaseContext);
+  const { auth, pocketBase, loading } = useContext(PocketBaseContext);
+
+  const gamesQuery = useQuery({
+    queryKey: ["games"],
+    queryFn: async () => {
+      const games = await pocketBase
+        .collection("games")
+        .getFullList<GameData>(undefined, { sort: "created", expand: "genre" });
+      return games;
+    },
+    refetchOnWindowFocus: false,
+    enabled: !loading,
+  });
 
   return (
     <>
@@ -131,6 +146,8 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
             <IconPlayCard size={32} />
             <Title order={3}>Spielehund</Title>
           </Group>
+
+          <Button leftIcon={<IconSearch {...IconProps}/>} variant="default" color="violet" radius="xl" size="md" w="15%">Search</Button>
 
           <Group spacing={5} className={classes.links}>
             {!auth ? showLogin && <LoginButtons /> : <UserButton />}

@@ -2,9 +2,10 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   Global,
-  MantineProvider
+  MantineProvider,
 } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
+import { SpotlightProvider } from "@mantine/spotlight";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getCookie, setCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
@@ -35,39 +36,43 @@ export default function MyApp({
       <PocketBaseProvider>
         <ColorSchemeProvider
           colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}>
+          toggleColorScheme={toggleColorScheme}
+        >
           <MantineProvider
             theme={{ colorScheme, defaultRadius: "md" }}
             withNormalizeCSS
-            withGlobalStyles>
-            <Global
-              styles={() => ({
-                "::-webkit-scrollbar": {
-                  width: 8,
-                  height: 8,
-                },
+            withGlobalStyles
+          >
+            <SpotlightProvider actions={[]}>
+              <Global
+                styles={() => ({
+                  "::-webkit-scrollbar": {
+                    width: 8,
+                    height: 8,
+                  },
 
-                "::-webkit-scrollbar-track": {
-                  background: "transparent",
-                },
+                  "::-webkit-scrollbar-track": {
+                    background: "transparent",
+                  },
 
-                "::-webkit-scrollbar-thumb": {
-                  background: "#2c2e33a4",
-                  borderRadius: 4,
-                },
+                  "::-webkit-scrollbar-thumb": {
+                    background: "#2c2e33a4",
+                    borderRadius: 4,
+                  },
 
-                "::-webkit-scrollbar-corner": {
-                  backgroundColor: "transparent",
-                },
+                  "::-webkit-scrollbar-corner": {
+                    backgroundColor: "transparent",
+                  },
 
-                "html, body, #__next": {
-                  height: "100%",
-                },
-              })}
-            />
-            <NotificationsProvider>
-              <Component {...pageProps} />
-            </NotificationsProvider>
+                  "html, body, #__next": {
+                    height: "100%",
+                  },
+                })}
+              />
+              <NotificationsProvider>
+                <Component {...pageProps} />
+              </NotificationsProvider>
+            </SpotlightProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </PocketBaseProvider>

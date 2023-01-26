@@ -11,6 +11,7 @@ specifiers:
   '@mantine/hooks': ^5.10.2
   '@mantine/next': ^5.10.2
   '@mantine/notifications': ^5.10.2
+  '@mantine/spotlight': ^5.10.2
   '@tabler/icons-react': ^2.1.1
   '@tanstack/react-query': ^4.23.0
   '@types/node': ^18.11.18
@@ -44,6 +45,7 @@ dependencies:
   '@mantine/hooks': 5.10.2_react@18.2.0
   '@mantine/next': 5.10.2_qoprtljvsltba6pjuevay7hrvy
   '@mantine/notifications': 5.10.2_yzf4d63xstafd7ya36kewhvvjm
+  '@mantine/spotlight': 5.10.2_yzf4d63xstafd7ya36kewhvvjm
   '@tabler/icons-react': 2.1.1_react@18.2.0
   '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
   cookies-next: 2.1.1
@@ -615,6 +617,21 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-transition-group: 4.4.2_biqbaboplfbrettd7655fr4n2y
+    dev: false
+
+  /@mantine/spotlight/5.10.2_yzf4d63xstafd7ya36kewhvvjm:
+    resolution: {integrity: sha512-x0vtYXrRWyn5oesbjeyRheMz8iOJoCc/uXidljEbmzCty/ESju4DSfRtOMpHwoWl76ZHC0KBMVd5QdFg+6zmiQ==}
+    peerDependencies:
+      '@mantine/core': 5.10.2
+      '@mantine/hooks': 5.10.2
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.10.2_bgdfy3qhwgihjpd7hjoiv47mfe
+      '@mantine/hooks': 5.10.2_react@18.2.0
+      '@mantine/utils': 5.10.2_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@mantine/ssr/5.10.2_vavbdtuajfyku5chqvt5ands7q:
