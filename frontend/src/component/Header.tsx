@@ -2,11 +2,12 @@ import {
   ActionIcon,
   Burger,
   Button,
+  Center,
   Container,
   createStyles,
   Group,
   Header,
-  HoverCard,
+  Image,
   Menu,
   Paper,
   Stack,
@@ -15,8 +16,9 @@ import {
   Transition,
   useMantineColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
+import { useSpotlight } from "@mantine/spotlight";
 import {
   IconLogin,
   IconMoon,
@@ -26,10 +28,9 @@ import {
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GameData } from "../pages";
 import { PocketBaseContext } from "./Pocketbase";
 
@@ -56,7 +57,7 @@ const useStyles = createStyles((theme) => ({
     overflow: "hidden",
     padding: 4,
 
-    [theme.fn.largerThan("sm")]: {
+    [theme.fn.largerThan(700)]: {
       display: "none",
     },
   },
@@ -69,13 +70,13 @@ const useStyles = createStyles((theme) => ({
   },
 
   links: {
-    [theme.fn.smallerThan("sm")]: {
+    [theme.fn.smallerThan(700)]: {
       display: "none",
     },
   },
 
   burger: {
-    [theme.fn.largerThan("sm")]: {
+    [theme.fn.largerThan(700)]: {
       display: "none",
     },
   },
@@ -100,7 +101,7 @@ const useStyles = createStyles((theme) => ({
           : theme.colors.gray[0],
     },
 
-    [theme.fn.smallerThan("sm")]: {
+    [theme.fn.smallerThan(700)]: {
       borderRadius: 0,
       padding: theme.spacing.md,
     },
@@ -122,18 +123,48 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const { auth, pocketBase, loading } = useContext(PocketBaseContext);
+  const matches = useMediaQuery("(min-width: 700px)");
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const spotlight = useSpotlight();
 
-  const gamesQuery = useQuery({
-    queryKey: ["games"],
-    queryFn: async () => {
+  async function openSearch() {
+    setLoadingSearch(true);
+    try {
       const games = await pocketBase
         .collection("games")
-        .getFullList<GameData>(undefined, { sort: "created", expand: "genre" });
-      return games;
-    },
-    refetchOnWindowFocus: false,
-    enabled: !loading,
-  });
+        .getFullList<GameData>(undefined, {
+          sort: "created",
+          expand: "genre",
+        });
+
+      spotlight.removeActions(spotlight.actions.map((item) => item.id));
+      spotlight.registerActions(
+        games.map((item) => ({
+          title: item.name,
+          id: item.id,
+          description: (
+            item.expand?.genre?.map((item) => item.name) || []
+          ).join(", "),
+          icon: (
+            <Center h="100%">
+              <Image
+                src={pocketBase.getFileUrl(item, item.titleImage, {
+                  thumb: "0x300",
+                })}
+                style={{ objectFit: "cover", width: 64, height: 64 }}
+                alt={item.name}
+              />
+            </Center>
+          ),
+          onTrigger: () => {},
+        }))
+      );
+      spotlight.openSpotlight();
+    } catch (e) {
+      console.error(e);
+    }
+    setLoadingSearch(false);
+  }
 
   return (
     <>
@@ -147,7 +178,31 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
             <Title order={3}>Spielehund</Title>
           </Group>
 
-          <Button leftIcon={<IconSearch {...IconProps}/>} variant="default" color="violet" radius="xl" size="md" w="15%">Search</Button>
+          {showLogin &&
+            (matches ? (
+              <Button
+                onClick={openSearch}
+                disabled={loadingSearch}
+                leftIcon={<IconSearch {...IconProps} />}
+                variant="default"
+                color="violet"
+                radius="xl"
+                size="md"
+                w="15%"
+              >
+                Search
+              </Button>
+            ) : (
+              <ActionIcon
+                onClick={openSearch}
+                disabled={loadingSearch}
+                size="lg"
+                radius="xl"
+                variant="default"
+              >
+                <IconSearch {...IconProps} />
+              </ActionIcon>
+            ))}
 
           <Group spacing={5} className={classes.links}>
             {!auth ? showLogin && <LoginButtons /> : <UserButton />}
@@ -162,7 +217,8 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
           <Transition
             transition="pop-top-right"
             duration={200}
-            mounted={opened}>
+            mounted={opened}
+          >
             {(styles) => (
               <Paper className={classes.dropdown} withBorder style={styles}>
                 <Stack spacing={4}>
@@ -199,7 +255,8 @@ function ColorButton({ button }: { button?: boolean }) {
     <Button
       leftIcon={icon}
       variant="default"
-      onClick={() => toggleColorScheme()}>
+      onClick={() => toggleColorScheme()}
+    >
       {colorScheme === "dark" ? "Light mode" : "Dark mode"}
     </Button>
   ) : (
@@ -234,7 +291,8 @@ function UserButton() {
             });
             router.push("/");
           }}
-          color="red">
+          color="red"
+        >
           Logout
         </Menu.Item>
       </Menu.Dropdown>
@@ -249,13 +307,15 @@ function LoginButtons() {
       <Button
         variant="default"
         leftIcon={<IconLogin {...IconProps} />}
-        onClick={() => router.push("/login")}>
+        onClick={() => router.push("/login")}
+      >
         Login
       </Button>
       <Button
         variant="default"
         leftIcon={<IconUserPlus {...IconProps} />}
-        onClick={() => router.push("/register")}>
+        onClick={() => router.push("/register")}
+      >
         Register
       </Button>
     </>
