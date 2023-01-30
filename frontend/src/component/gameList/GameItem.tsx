@@ -37,7 +37,9 @@ export default function GameItem(props: { game: GameData }) {
       </Card.Section>
 
       <Stack spacing={8} mt={8}>
-        <Title order={4} truncate >{props.game?.name}</Title>
+        <Title order={4} truncate>
+          {props.game?.name}
+        </Title>
 
         {genres.length !== 0 ? (
           <ScrollArea>
@@ -53,7 +55,10 @@ export default function GameItem(props: { game: GameData }) {
           <Box h={20} />
         )}
 
-        <Button color="violet" onClick={() => router.push("/lol")} fullWidth>
+        <Button
+          color="violet"
+          onClick={() => router.push(props.game.url)}
+          fullWidth>
           Spielen
         </Button>
       </Stack>

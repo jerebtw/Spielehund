@@ -10,6 +10,7 @@ import { PocketBaseContext } from "../component/Pocketbase";
 export interface GameData extends Record {
   name: string;
   description: string;
+  url: string;
   genre: string[];
   titleImage: string;
   gameImages: string[];
@@ -28,10 +29,9 @@ export default function Index() {
   const gamesQuery = useQuery({
     queryKey: ["games"],
     queryFn: async () => {
-      const games = await pocketBase
+      return await pocketBase
         .collection("games")
         .getFullList<GameData>(undefined, { sort: "created", expand: "genre" });
-      return games;
     },
     refetchOnWindowFocus: false,
     enabled: !loading,
