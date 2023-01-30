@@ -123,7 +123,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const { auth, pocketBase, loading } = useContext(PocketBaseContext);
-  const matches = useMediaQuery("(min-width: 700px)");
+  const matches = useMediaQuery("(min-width: 700px)", true);
   const [loadingSearch, setLoadingSearch] = useState(false);
   const spotlight = useSpotlight();
 
@@ -157,7 +157,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
             </Center>
           ),
           onTrigger: () => {},
-        }))
+        })),
       );
       spotlight.openSpotlight();
     } catch (e) {
@@ -182,43 +182,41 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
             (matches ? (
               <Button
                 onClick={openSearch}
-                disabled={loadingSearch}
+                loading={loadingSearch}
                 leftIcon={<IconSearch {...IconProps} />}
                 variant="default"
                 color="violet"
                 radius="xl"
                 size="md"
-                w="15%"
-              >
+                w="15%">
                 Search
               </Button>
             ) : (
               <ActionIcon
                 onClick={openSearch}
-                disabled={loadingSearch}
+                loading={loadingSearch}
                 size="lg"
                 radius="xl"
-                variant="default"
-              >
+                variant="default">
                 <IconSearch {...IconProps} />
               </ActionIcon>
             ))}
 
           <Group spacing={5} className={classes.links}>
-            {!auth ? showLogin && <LoginButtons /> : <UserButton />}
+            {showLogin && (!auth ? <LoginButtons /> : <UserButton />)}
             <ColorButton />
           </Group>
           <Burger
             opened={opened}
             onClick={toggle}
             className={classes.burger}
+            aria-label="Navigation öffnen"
             size="sm"
           />
           <Transition
             transition="pop-top-right"
             duration={200}
-            mounted={opened}
-          >
+            mounted={opened}>
             {(styles) => (
               <Paper className={classes.dropdown} withBorder style={styles}>
                 <Stack spacing={4}>
@@ -255,8 +253,7 @@ function ColorButton({ button }: { button?: boolean }) {
     <Button
       leftIcon={icon}
       variant="default"
-      onClick={() => toggleColorScheme()}
-    >
+      onClick={() => toggleColorScheme()}>
       {colorScheme === "dark" ? "Light mode" : "Dark mode"}
     </Button>
   ) : (
@@ -271,7 +268,7 @@ function UserButton() {
   const router = useRouter();
 
   return (
-    <Menu shadow="md" withArrow>
+    <Menu shadow="md" withArrow withinPortal>
       <Menu.Target>
         <Button variant="default" leftIcon={<IconUser {...IconProps} />}>
           {auth?.username}
@@ -291,8 +288,7 @@ function UserButton() {
             });
             router.push("/");
           }}
-          color="red"
-        >
+          color="red">
           Logout
         </Menu.Item>
       </Menu.Dropdown>
@@ -307,15 +303,13 @@ function LoginButtons() {
       <Button
         variant="default"
         leftIcon={<IconLogin {...IconProps} />}
-        onClick={() => router.push("/login")}
-      >
+        onClick={() => router.push("/login")}>
         Login
       </Button>
       <Button
         variant="default"
         leftIcon={<IconUserPlus {...IconProps} />}
-        onClick={() => router.push("/register")}
-      >
+        onClick={() => router.push("/register")}>
         Register
       </Button>
     </>

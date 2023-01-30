@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/router";
 import { IconProps } from "../Header";
 import { IconLogin, IconUserPlus } from "@tabler/icons-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PocketBaseContext } from "../Pocketbase";
 import { showNotification } from "@mantine/notifications";
 
@@ -29,6 +29,7 @@ interface AuthenticationForm {
 export function AuthenticationForm({ type }: { type: "login" | "register" }) {
   const router = useRouter();
   const { login, register, auth } = useContext(PocketBaseContext);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<AuthenticationForm>({
     initialValues: {
@@ -55,6 +56,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
   });
 
   async function formSubmit(values: AuthenticationForm) {
+    setLoading(true);
     if (type === "register") {
       try {
         await register({
@@ -98,6 +100,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
         });
       }
     }
+    setLoading(false);
   }
 
   if (auth) {
@@ -166,7 +169,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
                 ? "Hast du schon einen Account? Einloggen"
                 : "Du hast noch keinen Account? Registrieren"}
             </Anchor>
-            <Button
+            <Button loading={loading}
               type="submit"
               leftIcon={
                 type === "register" ? (

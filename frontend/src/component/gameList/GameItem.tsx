@@ -32,12 +32,12 @@ export default function GameItem(props: { game: GameData }) {
             thumb: " 0x300",
           })}
           height={160}
-          alt="Norway"
+          alt="Spielbild"
         />
       </Card.Section>
 
       <Stack spacing={8} mt={8}>
-        <Title order={4}>{props.game?.name}</Title>
+        <Title order={4} truncate >{props.game?.name}</Title>
 
         {genres.length !== 0 ? (
           <ScrollArea>
