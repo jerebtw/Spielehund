@@ -14,7 +14,7 @@ type Register = ({
   password,
   passwordConfirm,
 }: {
-  name: string;
+  username: string;
   email: string;
   password: string;
   passwordConfirm: string;
@@ -74,18 +74,18 @@ export function PocketBaseProvider(props: { children: React.ReactNode }) {
   }
 
   async function register({
-    name,
+    username,
     email,
     password,
     passwordConfirm,
   }: {
-    name: string;
+    username: string;
     email: string;
     password: string;
     passwordConfirm: string;
   }) {
     const user = await pocketBase!.collection("users").create({
-      name,
+      username,
       email,
       password,
       passwordConfirm,

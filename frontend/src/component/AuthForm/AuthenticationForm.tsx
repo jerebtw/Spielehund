@@ -21,7 +21,7 @@ import { showNotification } from "@mantine/notifications";
 
 interface AuthenticationForm {
   email: string;
-  name: string;
+  username: string;
   password: string;
   passwordConfirm: string;
 }
@@ -34,7 +34,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
   const form = useForm<AuthenticationForm>({
     initialValues: {
       email: "",
-      name: "",
+      username: "",
       password: "",
       passwordConfirm: "",
     },
@@ -60,7 +60,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
     if (type === "register") {
       try {
         await register({
-          name: values.name,
+          username: values.username,
           email: values.email,
           password: values.password,
           passwordConfirm: values.passwordConfirm,
@@ -128,7 +128,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
                 required
                 label="Name"
                 placeholder="Dein Name"
-                {...form.getInputProps("name")}
+                {...form.getInputProps("username")}
               />
             )}
 
