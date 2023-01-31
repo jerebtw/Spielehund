@@ -70,7 +70,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
           message: "Du wurdest registriert! Bitte prüfe deine E-Mails.",
           color: "green",
         });
-        router.push("/");
+        router.push("/login");
       } catch (error) {
         console.error(error);
         showNotification({
