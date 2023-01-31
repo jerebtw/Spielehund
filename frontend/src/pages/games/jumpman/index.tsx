@@ -1,16 +1,21 @@
 import {
+  ActionIcon,
   AspectRatio,
   Box,
+  Button,
   Card,
   Center,
   CloseButton,
   Container,
   Group,
+  HoverCard,
   Kbd,
   ScrollArea,
   Stack,
+  Text,
   Title,
 } from "@mantine/core";
+import { IconAdjustments, IconInfoCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import Keyboard from "../../../component/Keyboard";
@@ -52,7 +57,20 @@ export default function JumpManGame() {
     <Container py="5%">
       <Card withBorder style={{ overflow: "scroll" }}>
         <Stack>
+
           <Group position="apart">
+          <HoverCard width={280} shadow="md">
+        <HoverCard.Target>
+            <ActionIcon color="gray" radius="xl" variant="outline">
+              <IconInfoCircle size={18} />
+            </ActionIcon>
+        </HoverCard.Target>
+        <HoverCard.Dropdown>
+          <Text size="sm">
+            In Jumpman wird ein zufälliges Wort gewählt, welches der Spieler erraten soll. Dazu kannst du einfach einen Buchstaben auswählen. Falls dieser im Wort vorkommt wird dir angezeigt an welchen Stellen, falls nicht ist das Mänchen einen Schritt näher am Tod. Schaffst du es das Wort heraus zu bekommen bevor das Mänchen vom Dach springt?
+          </Text>
+        </HoverCard.Dropdown>
+      </HoverCard>
             <Title order={3}>JumpMan</Title>
             <CloseButton onClick={() => router.push("/")} />
           </Group>
