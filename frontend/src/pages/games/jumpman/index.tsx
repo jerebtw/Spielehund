@@ -36,21 +36,6 @@ export default function JumpManGame() {
 
     context.fillStyle = "green";
     context.fillRect(0, 400, 500, 100);
-
-    // Draw stick figure
-    context.beginPath();
-    context.arc(250, 350, 50, 0, 2 * Math.PI); // Head
-    context.moveTo(250, 400);
-    context.lineTo(250, 450); // Body
-    context.moveTo(250, 425);
-    context.lineTo(225, 400); // Left arm
-    context.moveTo(250, 425);
-    context.lineTo(275, 400); // Right arm
-    context.moveTo(250, 450);
-    context.lineTo(225, 480); // Left leg
-    context.moveTo(250, 450);
-    context.lineTo(275, 480); // Right leg
-    context.stroke();
   }, []);
 
   return (
