@@ -67,7 +67,10 @@ export default function JumpManGame() {
         </HoverCard.Target>
         <HoverCard.Dropdown>
           <Text size="sm">
-            In Jumpman wird ein zufälliges Wort gewählt, welches der Spieler erraten soll. Dazu kannst du einfach einen Buchstaben auswählen. Falls dieser im Wort vorkommt wird dir angezeigt an welchen Stellen, falls nicht ist das Mänchen einen Schritt näher am Tod. Schaffst du es das Wort heraus zu bekommen bevor das Mänchen vom Dach springt?
+            In Jumpman wird ein zufälliges Wort gewählt, welches der Spieler erraten soll. 
+            Dazu kannst du einfach einen Buchstaben auswählen. 
+            Falls dieser im Wort vorkommt wird dir angezeigt an welchen Stellen, falls nicht ist das Mänchen einen Schritt näher am Tod. 
+            Schaffst du es das Wort heraus zu bekommen bevor das Mänchen vom Dach springt?
           </Text>
         </HoverCard.Dropdown>
       </HoverCard>
