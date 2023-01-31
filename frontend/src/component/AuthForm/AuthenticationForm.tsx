@@ -151,7 +151,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
                 required
                 label="Passwort bestätigen"
                 placeholder="Dein Passwort nochmal"
-                {...form.getInputProps("confirmPassword")}
+                {...form.getInputProps("passwordConfirm")}
               />
             )}
           </Stack>
@@ -169,7 +169,8 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
                 ? "Hast du schon einen Account? Einloggen"
                 : "Du hast noch keinen Account? Registrieren"}
             </Anchor>
-            <Button loading={loading}
+            <Button
+              loading={loading}
               type="submit"
               leftIcon={
                 type === "register" ? (
