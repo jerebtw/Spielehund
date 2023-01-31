@@ -102,6 +102,7 @@ export default function GamePage() {
               )}
 
               <Button
+                loading={loading}
                 color="violet"
                 onClick={() => router.push(gameQuery.data.url)}>
                 Spielen
