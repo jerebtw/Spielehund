@@ -101,7 +101,11 @@ export default function GamePage() {
                 </>
               )}
 
-              <Button color="violet">Spielen</Button>
+              <Button
+                color="violet"
+                onClick={() => router.push(gameQuery.data.url)}>
+                Spielen
+              </Button>
             </Stack>
           </Paper>
         </Container>
