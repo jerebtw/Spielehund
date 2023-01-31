@@ -6,6 +6,7 @@ import {
   Container,
   Group,
   Image,
+  Paper,
   Stack,
   Text,
   Title,
@@ -59,48 +60,50 @@ export default function GamePage() {
         <Loading />
       ) : (
         <Container px="10%" py="2%">
-          <Stack>
-            <Group position="right">
-              <CloseButton onClick={() => router.push("/")} />
-            </Group>
+          <Paper>
+            <Stack>
+              <Group position="right">
+                <CloseButton onClick={() => router.push("/")} />
+              </Group>
 
-            <Center>
-              <Title>{gameQuery.data.name}</Title>
-            </Center>
+              <Center>
+                <Title>{gameQuery.data.name}</Title>
+              </Center>
 
-            {gameQuery.data.description && (
-              <>
-                <Title order={3}>Beschreibung:</Title>
-                <Text>{gameQuery.data.description}</Text>
-              </>
-            )}
+              {gameQuery.data.description && (
+                <>
+                  <Title order={3}>Beschreibung:</Title>
+                  <Text>{gameQuery.data.description}</Text>
+                </>
+              )}
 
-            {gameQuery.data?.gameImages?.length !== 0 && (
-              <>
-                <Title order={3}>Bilder:</Title>
-                <Carousel
-                  sx={{ maxWidth: 800 }}
-                  height="100%"
-                  mx="auto"
-                  withIndicators
-                  loop>
-                  {gameQuery?.data?.gameImages?.map((image) => (
-                    <Carousel.Slide key={image}>
-                      <Image
-                        src={pocketBase.getFileUrl(gameQuery.data, image, {
-                          thumb: "0x300",
-                        })}
-                        style={{ objectFit: "cover" }}
-                        alt={gameQuery.data.name}
-                      />
-                    </Carousel.Slide>
-                  ))}
-                </Carousel>
-              </>
-            )}
+              {gameQuery.data?.gameImages?.length !== 0 && (
+                <>
+                  <Title order={3}>Bilder:</Title>
+                  <Carousel
+                    sx={{ maxWidth: 800 }}
+                    height="100%"
+                    mx="auto"
+                    withIndicators
+                    loop>
+                    {gameQuery?.data?.gameImages?.map((image) => (
+                      <Carousel.Slide key={image}>
+                        <Image
+                          src={pocketBase.getFileUrl(gameQuery.data, image, {
+                            thumb: "0x300",
+                          })}
+                          style={{ objectFit: "cover" }}
+                          alt={gameQuery.data.name}
+                        />
+                      </Carousel.Slide>
+                    ))}
+                  </Carousel>
+                </>
+              )}
 
-            <Button color="violet">Spielen</Button>
-          </Stack>
+              <Button color="violet">Spielen</Button>
+            </Stack>
+          </Paper>
         </Container>
       )}
     </>
