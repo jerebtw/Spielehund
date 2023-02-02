@@ -36,6 +36,21 @@ export default function JumpManGame() {
 
     context.fillStyle = "green";
     context.fillRect(0, 400, 500, 100);
+
+    // Draw stick figure
+    context.beginPath();
+    context.arc(250, 350, 50, 0, 2 * Math.PI); // Head
+    context.moveTo(250, 400);
+    context.lineTo(250, 450); // Body
+    context.moveTo(250, 425);
+    context.lineTo(225, 400); // Left arm
+    context.moveTo(250, 425);
+    context.lineTo(275, 400); // Right arm
+    context.moveTo(250, 450);
+    context.lineTo(225, 480); // Left leg
+    context.moveTo(250, 450);
+    context.lineTo(275, 480); // Right leg
+    context.stroke();
   }, []);
 
   return (
@@ -52,10 +67,7 @@ export default function JumpManGame() {
         </HoverCard.Target>
         <HoverCard.Dropdown>
           <Text size="sm">
-            In Jumpman wird ein zufälliges Wort gewählt, welches der Spieler erraten soll. 
-            Dazu kannst du einfach einen Buchstaben auswählen. 
-            Falls dieser im Wort vorkommt wird dir angezeigt an welchen Stellen, falls nicht ist das Mänchen einen Schritt näher am Tod. 
-            Schaffst du es das Wort heraus zu bekommen bevor das Mänchen vom Dach springt?
+            In Jumpman wird ein zufälliges Wort gewählt, welches der Spieler erraten soll. Dazu kannst du einfach einen Buchstaben auswählen. Falls dieser im Wort vorkommt wird dir angezeigt an welchen Stellen, falls nicht ist das Mänchen einen Schritt näher am Tod. Schaffst du es das Wort heraus zu bekommen bevor das Mänchen vom Dach springt?
           </Text>
         </HoverCard.Dropdown>
       </HoverCard>
