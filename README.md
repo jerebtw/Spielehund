@@ -1,4 +1,4 @@
-# Schule-Projekt
+# Spielehund
 
 Frontend: Next.js
-Backend: NodeJS
+Backend: Deno

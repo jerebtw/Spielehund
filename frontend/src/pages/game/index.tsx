@@ -1,6 +1,9 @@
 import { Carousel } from "@mantine/carousel";
 import {
+  AspectRatio,
+  Box,
   Button,
+  Card,
   Center,
   CloseButton,
   Container,
@@ -60,15 +63,13 @@ export default function GamePage() {
         <Loading />
       ) : (
         <Container px="10%" py="2%">
-          <Paper>
+          <Card withBorder>
             <Stack>
-              <Group position="right">
+              <Group position="apart">
+                <Box />
+                <Title order={3}>{gameQuery.data.name}</Title>
                 <CloseButton onClick={() => router.push("/")} />
               </Group>
-
-              <Center>
-                <Title>{gameQuery.data.name}</Title>
-              </Center>
 
               {gameQuery.data.description && (
                 <>
@@ -88,13 +89,15 @@ export default function GamePage() {
                     loop>
                     {gameQuery?.data?.gameImages?.map((image) => (
                       <Carousel.Slide key={image}>
-                        <Image
-                          src={pocketBase.getFileUrl(gameQuery.data, image, {
-                            thumb: "0x300",
-                          })}
-                          style={{ objectFit: "cover" }}
-                          alt={gameQuery.data.name}
-                        />
+                        <AspectRatio ratio={16 / 9}>
+                          <Image
+                            src={pocketBase.getFileUrl(gameQuery.data, image, {
+                              thumb: "0x300",
+                            })}
+                            style={{ objectFit: "cover" }}
+                            alt={gameQuery.data.name}
+                          />
+                        </AspectRatio>
                       </Carousel.Slide>
                     ))}
                   </Carousel>
@@ -108,7 +111,7 @@ export default function GamePage() {
                 Spielen
               </Button>
             </Stack>
-          </Paper>
+          </Card>
         </Container>
       )}
     </>
