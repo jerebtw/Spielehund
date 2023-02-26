@@ -14,7 +14,8 @@ import {
   Text,
   Title,
   Transition,
-  useMantineColorScheme,
+  UnstyledButton,
+  useMantineColorScheme
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
@@ -26,7 +27,7 @@ import {
   IconSearch,
   IconSun,
   IconUser,
-  IconUserPlus,
+  IconUserPlus
 } from "@tabler/icons-react";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
@@ -121,6 +122,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
   const { classes } = useStyles();
+  const router = useRouter();
   const [opened, { toggle }] = useDisclosure(false);
   const { auth, pocketBase, loading } = useContext(PocketBaseContext);
   const matches = useMediaQuery("(min-width: 700px)", true);
@@ -173,10 +175,12 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
       </Head>
       <Header height={HEADER_HEIGHT} className={classes.root}>
         <Container className={classes.header}>
-          <Group>
-            <IconPlayCard size={32} />
-            <Title order={3}>Spielehund</Title>
-          </Group>
+          <UnstyledButton onClick={() => router.push("/")}>
+            <Group>
+              <IconPlayCard size={32} />
+              <Title order={3}>Spielehund</Title>
+            </Group>
+          </UnstyledButton>
 
           {showLogin &&
             (matches ? (
