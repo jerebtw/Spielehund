@@ -44,10 +44,32 @@ const letters = [
 ];
 
 export default function Keyboard({
+  currentWord,
   setValue: setSelectedVal,
+  value: selectedVal,
+  onChange,
 }: {
+  currentWord: string;
   setValue: Dispatch<SetStateAction<string>>;
+  value: string;
+  onChange: (value: string) => void;
 }) {
+  function getLetterColor(letter: string) {
+    if (letter === "") {
+      return "gray";
+    }
+
+    if (selectedVal.includes(letter) && !currentWord.includes(letter)) {
+      return "red";
+    }
+
+    if (selectedVal.includes(letter) && currentWord.includes(letter)) {
+      return "green";
+    }
+
+    return "gray";
+  }
+
   function getRow(letters: { value: string }[]) {
     return (
       <Group spacing={4} grow>
@@ -55,16 +77,18 @@ export default function Keyboard({
           <Button
             key={`keyboard-${letter.value}-${index}`}
             onClick={() => {
-              if (letter.value === "") {
-                return;
-              } else if (letter.value === "back") {
-                setSelectedVal((c) => c.slice(0, -1));
+              if (selectedVal.includes(letter.value)) {
                 return;
               }
 
+              onChange(letter.value);
               setSelectedVal((c) => c + letter.value);
             }}
-            variant="default">
+            disabled={letter.value === ""}
+            variant={
+              getLetterColor(letter.value) === "gray" ? "default" : "filled"
+            }
+            color={getLetterColor(letter.value)}>
             {letter.value}
           </Button>
         ))}

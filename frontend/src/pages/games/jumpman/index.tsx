@@ -21,14 +21,37 @@ import Keyboard from "../../../component/Keyboard";
 
 export default function JumpManGame() {
   const router = useRouter();
-  const [selectedVal, setSelectedVal] = useState("");
 
   const [currentWord, setCurrentWord] = useState("TEST");
+  const [selectedVal, setSelectedVal] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
   const walkImages = new Array(10).fill(0).map((_, index) => ({
     id: index + 1,
     src: `/JumpmanImages/Jumpman Walk${index + 1}.png`,
   }));
+
+  const resultWort = currentWord.split("").map((letter) => {
+    if (selectedVal.includes(letter)) {
+      return letter;
+    }
+
+    return "_";
+  });
+
+  const currentImageSrc = () => {
+    if (
+      resultWort.filter((letter) => letter !== "_").length ===
+      currentWord.length
+    ) {
+      return "/JumpmanImages/Jumpman Won.png";
+    }
+
+    if (currentImage === walkImages.length) {
+      return "/JumpmanImages/Jumpman Jump.gif";
+    }
+
+    return walkImages.at(currentImage).src;
+  };
 
   return (
     <Container py="5%">
@@ -66,11 +89,7 @@ export default function JumpManGame() {
               }}
               withBorder>
               <img
-                src={
-                  currentImage === walkImages.length
-                    ? "/JumpmanImages/Jumpman Jump.gif"
-                    : walkImages.at(currentImage).src
-                }
+                src={currentImageSrc()}
                 style={{ paddingLeft: 16, paddingRight: 16, width: "100%" }}
                 alt="Jump"
               />
@@ -90,18 +109,27 @@ export default function JumpManGame() {
 
           <Center>
             <Group spacing={4}>
-              {selectedVal.split("").map((letter, index) => (
-                <Button
-                  key={`selected-${letter}-${index}`}
-                  variant="filled"
-                  color="green">
-                  {letter}
-                </Button>
-              ))}
+              {resultWort.map((letter, index) => {
+                const isCorrect = letter !== "_";
+
+                return (
+                  <Button
+                    key={`selected-${letter}-${index}`}
+                    variant="filled"
+                    color={isCorrect ? "green" : "gray"}>
+                    {isCorrect && letter}
+                  </Button>
+                );
+              })}
             </Group>
           </Center>
 
-          <Keyboard setValue={setSelectedVal} />
+          <Keyboard
+            setValue={setSelectedVal}
+            value={selectedVal}
+            onChange={(letter) => {}}
+            currentWord={currentWord}
+          />
         </Stack>
       </Card>
     </Container>
