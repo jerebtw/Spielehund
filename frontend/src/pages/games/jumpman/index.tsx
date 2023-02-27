@@ -17,10 +17,16 @@ import {
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Record } from "pocketbase";
 import Keyboard from "../../../component/Keyboard";
+
+interface Word extends Record {
+  content:string;
+}
 
 export default function JumpManGame() {
   const router = useRouter();
+  const { pocketBase, loading } = useContext(PocketBaseContext);
 
   const [currentWord, setCurrentWord] = useState("TEST");
   const [selectedVal, setSelectedVal] = useState("");
@@ -52,6 +58,18 @@ export default function JumpManGame() {
 
     return walkImages.at(currentImage).src;
   };
+
+  const wordListQuery = useQuery({
+    queryKey: ["wordList"],
+    queryFn: async () => {
+  return  await pocketBase
+        .collection("jumpmanWordlist")
+        .getFullList<Word>({ sort: "content" }); 
+    },
+    refetchOnWindowFocus: false,
+    enabled: !loading && !!id,
+  });
+
 
   return (
     <Container py="5%">
