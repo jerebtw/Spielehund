@@ -21,16 +21,17 @@ import { Record } from "pocketbase";
 import Keyboard from "../../../component/Keyboard";
 import { useQuery } from "@tanstack/react-query";
 import { PocketBaseContext } from "../../../component/Pocketbase";
+import Loading from "../../../component/Loading";
 
 interface Word extends Record {
-  content:string;
+  content: string;
 }
 
 export default function JumpManGame() {
   const router = useRouter();
   const { pocketBase, loading } = useContext(PocketBaseContext);
 
-  const [currentWord, setCurrentWord] = useState("TEST");
+  const [currentWord, setCurrentWord] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
   const walkImages = new Array(10).fill(0).map((_, index) => ({
@@ -47,10 +48,7 @@ export default function JumpManGame() {
   });
 
   const currentImageSrc = () => {
-    if (
-      resultWort.filter((letter) => letter !== "_").length ===
-      currentWord.length
-    ) {
+    if (checkWin()) {
       return "/JumpmanImages/Jumpman Won.png";
     }
 
@@ -64,14 +62,34 @@ export default function JumpManGame() {
   const wordListQuery = useQuery({
     queryKey: ["wordList"],
     queryFn: async () => {
-  return  await pocketBase
+      const data = await pocketBase
         .collection("jumpmanWordlist")
-        .getFullList<Word>({ sort: "content" }); 
+        .getFullList<Word>({ sort: "content" });
+
+      reset(data.map((item) => item.content));
+
+      return data;
     },
     refetchOnWindowFocus: false,
     enabled: !loading,
   });
 
+  function checkWin() {
+    return (
+      resultWort.filter((letter) => letter !== "_").length ===
+      currentWord.length
+    );
+  }
+
+  function checkLose() {
+    return currentImage === walkImages.length;
+  }
+
+  function reset(wordList: string[]) {
+    setCurrentWord(wordList[Math.floor(Math.random() * wordList.length)]);
+    setSelectedVal("");
+    setCurrentImage(0);
+  }
 
   return (
     <Container py="5%">
@@ -99,57 +117,67 @@ export default function JumpManGame() {
             <CloseButton onClick={() => router.push("/")} />
           </Group>
 
-          <Center py="2%">
-            <Paper
-              pt="5%"
-              style={{
-                width: "80%",
-                height: "100%",
-                backgroundColor: "transparent",
-              }}
-              withBorder>
-              <img
-                src={currentImageSrc()}
-                style={{ paddingLeft: 16, paddingRight: 16, width: "100%" }}
-                alt="Jump"
+          {wordListQuery.isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <Center py="2%">
+                <Paper
+                  pt="5%"
+                  style={{
+                    width: "80%",
+                    height: "100%",
+                    backgroundColor: "transparent",
+                  }}
+                  withBorder
+                >
+                  <img
+                    src={currentImageSrc()}
+                    style={{ paddingLeft: 16, paddingRight: 16, width: "100%" }}
+                    alt="Jump"
+                  />
+                </Paper>
+              </Center>
+
+              <Center>
+                <Group spacing={4}>
+                  {(checkLose() ? currentWord.split("") : resultWort).map(
+                    (letter, index) => {
+                      const isCorrect = letter !== "_";
+                      const lose = checkLose();
+
+                      return (
+                        <Button
+                          key={`selected-${letter}-${index}`}
+                          variant={lose || isCorrect ? "filled" : "default"}
+                          color={lose ? "red" : "green"}
+                        >
+                          {(lose || isCorrect) && letter}
+                        </Button>
+                      );
+                    }
+                  )}
+                </Group>
+              </Center>
+
+              <Keyboard
+                setValue={setSelectedVal}
+                value={selectedVal}
+                onChange={(letter) => {
+                  if (currentWord.includes(letter)) {
+                    return;
+                  }
+
+                  setCurrentImage((c) => c + 1);
+                }}
+                finished={checkLose() || checkWin()}
+                currentWord={currentWord}
+                resetFunc={() =>
+                  reset(wordListQuery.data?.map((item) => item.content) || [])
+                }
               />
-            </Paper>
-          </Center>
-
-          <Button
-            onClick={() => {
-              if (currentImage === walkImages.length) {
-                setCurrentImage(0);
-              } else {
-                setCurrentImage((c) => c + 1);
-              }
-            }}>
-            Next
-          </Button>
-
-          <Center>
-            <Group spacing={4}>
-              {resultWort.map((letter, index) => {
-                const isCorrect = letter !== "_";
-
-                return (
-                  <Button
-                    key={`selected-${letter}-${index}`}
-                    variant="filled"
-                    color={isCorrect ? "green" : "gray"}>
-                    {isCorrect && letter}
-                  </Button>
-                );
-              })}
-            </Group>
-          </Center>
-
-          <Keyboard
-            setValue={setSelectedVal}
-            value={selectedVal}
-            onChange={(letter) => {}}
-            currentWord={currentWord}
-          />
+            </>
+          )}
         </Stack>
       </Card>
     </Container>

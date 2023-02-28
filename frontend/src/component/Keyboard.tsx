@@ -1,5 +1,9 @@
 import { Center, Stack, Group, Button } from "@mantine/core";
-import { Dispatch, SetStateAction } from "react";
+import { useQuery } from "@tanstack/react-query";
+import router, { useRouter } from "next/router";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { GameData } from "../pages";
+import { PocketBaseContext } from "./Pocketbase";
 
 const letters = [
   [
@@ -48,11 +52,15 @@ export default function Keyboard({
   setValue: setSelectedVal,
   value: selectedVal,
   onChange,
+  finished,
+  resetFunc,
 }: {
   currentWord: string;
   setValue: Dispatch<SetStateAction<string>>;
   value: string;
   onChange: (value: string) => void;
+  finished: boolean;
+  resetFunc: () => void;
 }) {
   function getLetterColor(letter: string) {
     if (letter === "") {
@@ -84,11 +92,12 @@ export default function Keyboard({
               onChange(letter.value);
               setSelectedVal((c) => c + letter.value);
             }}
-            disabled={letter.value === ""}
+            disabled={letter.value === "" || finished}
             variant={
               getLetterColor(letter.value) === "gray" ? "default" : "filled"
             }
-            color={getLetterColor(letter.value)}>
+            color={getLetterColor(letter.value)}
+          >
             {letter.value}
           </Button>
         ))}
@@ -102,6 +111,14 @@ export default function Keyboard({
         {getRow(letters[0])}
         {getRow(letters[1])}
         {getRow(letters[2])}
+        <Group spacing={4} grow>
+          <Button color={"red"} onClick={() => router.push("/")}>
+            Beenden
+          </Button>
+          <Button color={"green"} onClick={resetFunc}>
+            Neues Spiel
+          </Button>
+        </Group>
       </Stack>
     </Center>
   );
