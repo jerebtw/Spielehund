@@ -16,7 +16,7 @@ import {
 } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Record } from "pocketbase";
 import Keyboard from "../../../component/Keyboard";
 import { useQuery } from "@tanstack/react-query";
@@ -29,8 +29,9 @@ interface Word extends Record {
 
 export default function JumpManGame() {
   const router = useRouter();
-  const { pocketBase, loading } = useContext(PocketBaseContext);
+  const { pocketBase, auth, loading } = useContext(PocketBaseContext);
 
+  const [send, setSend] = useState(false);
   const [currentWord, setCurrentWord] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
@@ -39,7 +40,7 @@ export default function JumpManGame() {
     src: `/JumpmanImages/Jumpman Walk${index + 1}.png`,
   }));
 
-  const resultWort = currentWord.split("").map((letter) => {
+  const resultWord = currentWord.split("").map((letter) => {
     if (selectedVal.includes(letter)) {
       return letter;
     }
@@ -64,21 +65,18 @@ export default function JumpManGame() {
     queryFn: async () => {
       const data = await pocketBase
         .collection("jumpmanWordlist")
-        .getFullList<Word>({ sort: "content" });
+        .getFullList<Word>({ sort: "content", batch: 500 });
 
       reset(data.map((item) => item.content));
 
       return data;
     },
     refetchOnWindowFocus: false,
-    enabled: !loading,
+    enabled: !!auth && !loading,
   });
 
   function checkWin() {
-    return (
-      resultWort.filter((letter) => letter !== "_").length ===
-      currentWord.length
-    );
+    return resultWord.join("") === currentWord;
   }
 
   function checkLose() {
@@ -89,7 +87,25 @@ export default function JumpManGame() {
     setCurrentWord(wordList[Math.floor(Math.random() * wordList.length)]);
     setSelectedVal("");
     setCurrentImage(0);
+    setSend(false);
   }
+
+  useEffect(() => {
+    if ((checkWin() || checkLose()) && !send && currentWord !== "") {
+      (async () => {
+        try {
+          await pocketBase.collection("jumpmanGames").create({
+            word: currentWord,
+            won: checkWin(),
+            user: auth.id,
+          });
+          setSend(true);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    }
+  }, [send, currentWord, resultWord, currentImage]);
 
   return (
     <Container py="5%">
@@ -117,10 +133,16 @@ export default function JumpManGame() {
             <CloseButton onClick={() => router.push("/")} />
           </Group>
 
-          {wordListQuery.isLoading ? (
+          {!auth ? (
+            <>LOGIN NEEDED</>
+          ) : wordListQuery.isLoading ? (
             <Loading />
           ) : (
             <>
+              <Center>
+                <Title>{`${currentImage}/${walkImages.length}`}</Title>
+              </Center>
+
               <Center py="2%">
                 <Paper
                   pt="5%"
@@ -141,7 +163,7 @@ export default function JumpManGame() {
 
               <Center>
                 <Group spacing={4}>
-                  {(checkLose() ? currentWord.split("") : resultWort).map(
+                  {(checkLose() ? currentWord.split("") : resultWord).map(
                     (letter, index) => {
                       const isCorrect = letter !== "_";
                       const lose = checkLose();
@@ -163,7 +185,7 @@ export default function JumpManGame() {
               <Keyboard
                 setValue={setSelectedVal}
                 value={selectedVal}
-                onChange={(letter) => {
+                onChange={async (letter) => {
                   if (currentWord.includes(letter)) {
                     return;
                   }
