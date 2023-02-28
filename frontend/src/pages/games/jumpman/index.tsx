@@ -134,7 +134,7 @@ export default function JumpManGame() {
           </Group>
 
           {!auth ? (
-            <>LOGIN NEEDED</>
+            <Button onClick={(() => router.push("/login"))}>Login</Button>
           ) : wordListQuery.isLoading ? (
             <Loading />
           ) : (
