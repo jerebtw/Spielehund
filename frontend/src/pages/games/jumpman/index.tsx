@@ -16,9 +16,11 @@ import {
 } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Record } from "pocketbase";
 import Keyboard from "../../../component/Keyboard";
+import { useQuery } from "@tanstack/react-query";
+import { PocketBaseContext } from "../../../component/Pocketbase";
 
 interface Word extends Record {
   content:string;
@@ -67,7 +69,7 @@ export default function JumpManGame() {
         .getFullList<Word>({ sort: "content" }); 
     },
     refetchOnWindowFocus: false,
-    enabled: !loading && !!id,
+    enabled: !loading,
   });
 
 
