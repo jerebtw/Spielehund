@@ -9,7 +9,6 @@ import {
   Container,
   Group,
   Image,
-  Paper,
   Stack,
   Text,
   Title,
@@ -17,7 +16,7 @@ import {
 import { IconArrowBack, IconMoodSad } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { GameData } from "..";
 import Header, { IconProps } from "../../component/Header";
 import Loading from "../../component/Loading";
@@ -30,16 +29,21 @@ export default function GamePage() {
 
   const gameQuery = useQuery({
     queryKey: ["genres"],
-    queryFn: async () => {
-      const game = await pocketBase
+    queryFn: async () =>
+      await pocketBase
         .collection("games")
-        .getOne<GameData>(id as string, { expand: "genre" });
-      console.log(game);
-      return game;
-    },
+        .getOne<GameData>(id as string, { expand: "genre" }),
     refetchOnWindowFocus: false,
     enabled: !loading && !!id,
   });
+
+  const images = useMemo(() => {
+    const filesUrls: string[] = [];
+    for (const image of gameQuery.data?.gameImages || []) {
+      filesUrls.push(pocketBase.getFileUrl(gameQuery.data, image));
+    }
+    return filesUrls;
+  }, [gameQuery.data, pocketBase]);
 
   return (
     <>
@@ -52,9 +56,9 @@ export default function GamePage() {
               <IconMoodSad size={80} />
             </Group>
             <Button
-              color="red"
               leftIcon={<IconArrowBack {...IconProps} />}
-              onClick={() => router.push("/")}>
+              onClick={() => router.push("/")}
+              color="red">
               Zurück
             </Button>
           </Stack>
@@ -78,25 +82,18 @@ export default function GamePage() {
                 </>
               )}
 
-              {gameQuery.data?.gameImages?.length !== 0 && (
+              {images.length !== 0 && (
                 <>
                   <Title order={3}>Bilder:</Title>
                   <Carousel
                     sx={{ maxWidth: 800 }}
                     height="100%"
-                    mx="auto"
                     withIndicators
                     loop>
-                    {gameQuery?.data?.gameImages?.map((image) => (
+                    {images.map((image) => (
                       <Carousel.Slide key={image}>
                         <AspectRatio ratio={16 / 9}>
-                          <Image
-                            src={pocketBase.getFileUrl(gameQuery.data, image, {
-                              thumb: "0x300",
-                            })}
-                            style={{ objectFit: "cover" }}
-                            alt={gameQuery.data.name}
-                          />
+                          <Image src={image} alt={gameQuery.data.name} />
                         </AspectRatio>
                       </Carousel.Slide>
                     ))}
@@ -106,8 +103,8 @@ export default function GamePage() {
 
               <Button
                 loading={loading}
-                color="violet"
-                onClick={() => router.push(gameQuery.data.url)}>
+                onClick={() => router.push(gameQuery.data.url)}
+                color="violet">
                 Spielen
               </Button>
             </Stack>

@@ -15,7 +15,7 @@ import {
   Title,
   Transition,
   UnstyledButton,
-  useMantineColorScheme
+  useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
@@ -27,7 +27,7 @@ import {
   IconSearch,
   IconSun,
   IconUser,
-  IconUserPlus
+  IconUserPlus,
 } from "@tabler/icons-react";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";

@@ -28,23 +28,20 @@ export default function Index() {
 
   const gamesQuery = useQuery({
     queryKey: ["games"],
-    queryFn: async () => {
-      return await pocketBase
+    queryFn: async () =>
+      await pocketBase
         .collection("games")
-        .getFullList<GameData>(undefined, { sort: "created", expand: "genre" });
-    },
+        .getFullList<GameData>(undefined, { sort: "created", expand: "genre" }),
     refetchOnWindowFocus: false,
     enabled: !loading,
   });
 
   const genresQuery = useQuery({
     queryKey: ["genres"],
-    queryFn: async () => {
-      const genres = await pocketBase
+    queryFn: async () =>
+      await pocketBase
         .collection("genres")
-        .getFullList<GenreData>(undefined, { sort: "created" });
-      return genres;
-    },
+        .getFullList<GenreData>(undefined, { sort: "created" }),
     refetchOnWindowFocus: false,
     enabled: !loading,
   });
