@@ -11,9 +11,7 @@ import {
   Menu,
   Paper,
   Stack,
-  Text,
-  ThemeIcon,
-  Title,
+  Text, Title,
   Transition,
   UnstyledButton,
   useMantineColorScheme
@@ -177,9 +175,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
         <Container className={classes.header}>
           <UnstyledButton onClick={() => router.push("/")}>
             <Group>
-              <ThemeIcon>
-                <NextImage src="/favicon.ico" alt="Icon" height={32} width={32} />
-              </ThemeIcon>
+              <NextImage src="/favicon.ico" alt="Icon" height={32} width={32} />
               <Title order={3}>Spielehund</Title>
             </Group>
           </UnstyledButton>
