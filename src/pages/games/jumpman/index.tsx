@@ -162,7 +162,7 @@ export default function JumpManGame() {
               <Loading />
             ) : (
               <>
-                <Group position="apart">
+                <Group position="apart" py="2%">
                   <Title order={3}>
                     Fehler: {`${currentImage}/${walkImages.length}`}
                   </Title>
