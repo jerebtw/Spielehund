@@ -12,6 +12,7 @@ import {
   Paper,
   Stack,
   Text,
+  ThemeIcon,
   Title,
   Transition,
   UnstyledButton,
@@ -177,7 +178,9 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
         <Container className={classes.header}>
           <UnstyledButton onClick={() => router.push("/")}>
             <Group>
-              <IconPlayCard size={32} />
+              <ThemeIcon>
+                <img src="/favicon.ico" height={32} width={32} />
+              </ThemeIcon>
               <Title order={3}>Spielehund</Title>
             </Group>
           </UnstyledButton>
