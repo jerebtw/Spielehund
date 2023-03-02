@@ -158,12 +158,13 @@ export default function JumpManGame() {
 
             {!auth ? (
               <Button onClick={() => router.push("/login")}>Login</Button>
-            ) : wordListQuery.isLoading ? (
+            ) : wordListQuery.isLoading || gameStatsQuery.isLoading ? (
               <Loading />
             ) : (
               <>
                 <Center>
-                  <Title>{`${currentImage}/${walkImages.length}`}</Title>
+                  <Title>Fehler: {`${currentImage}/${walkImages.length}`}</Title>
+                  <Title>Win/Lose: {gameStatsQuery.data?.at(0)?.Rate || 0}</Title>
                 </Center>
 
                 <Center py="2%">
