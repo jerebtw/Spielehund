@@ -28,6 +28,12 @@ interface Word extends Record {
   content: string;
 }
 
+interface WinLose extends Record {
+  Wins: number;
+  Loses: number;
+  Rate: number;
+}
+
 export default function JumpManGame() {
   const router = useRouter();
   const { pocketBase, auth, loading } = useContext(PocketBaseContext);
@@ -71,6 +77,17 @@ export default function JumpManGame() {
       reset(data.map((item) => item.content));
 
       return data;
+    },
+    refetchOnWindowFocus: false,
+    enabled: !!auth && !loading,
+  });
+
+  const gameStatsQuery = useQuery({
+    queryKey: ["gameStats"],
+    queryFn: async () => {
+      return await pocketBase
+        .collection("jumpmanWinLose")
+        .getFullList<WinLose>();
     },
     refetchOnWindowFocus: false,
     enabled: !!auth && !loading,
