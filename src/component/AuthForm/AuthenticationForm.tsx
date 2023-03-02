@@ -61,7 +61,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
       try {
         await register({
           username: values.username,
-          email: values.email,
+          email: values.email.toLowerCase(),
           password: values.password,
           passwordConfirm: values.passwordConfirm,
         });
@@ -82,7 +82,7 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
     } else {
       try {
         await login({
-          email: values.email,
+          email: values.email.toLowerCase(),
           password: values.password,
         });
         showNotification({
