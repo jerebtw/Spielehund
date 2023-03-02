@@ -4,11 +4,11 @@ import {
   Button,
   Card,
   Group,
+  Image,
   ScrollArea,
   Stack,
   Title,
 } from "@mantine/core";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { GameData } from "../../pages";
@@ -28,9 +28,10 @@ export default function GameItem(props: { game: GameData }) {
       <Card.Section>
         <Image
           onClick={() => router.push(`/game?id=${props.game.id}`)}
-          src={pocketBase.getFileUrl(props.game, props.game.titleImage)}
+          src={pocketBase.getFileUrl(props.game, props.game.titleImage, {
+            thumb: " 0x300",
+          })}
           height={160}
-          width={208}
           alt="Spielbild"
         />
       </Card.Section>
