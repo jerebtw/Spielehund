@@ -16,22 +16,21 @@ import {
   Title,
   Transition,
   UnstyledButton,
-  useMantineColorScheme,
+  useMantineColorScheme
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { useSpotlight } from "@mantine/spotlight";
 import {
   IconLogin,
-  IconMoon,
-  IconPlayCard,
-  IconSearch,
+  IconMoon, IconSearch,
   IconSun,
   IconUser,
-  IconUserPlus,
+  IconUserPlus
 } from "@tabler/icons-react";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
+import NextImage from "next/image";
 import { useContext, useState } from "react";
 import { GameData } from "../pages";
 import { PocketBaseContext } from "./Pocketbase";
@@ -179,7 +178,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
           <UnstyledButton onClick={() => router.push("/")}>
             <Group>
               <ThemeIcon>
-                <img src="/favicon.ico" height={32} width={32} />
+                <NextImage src="/favicon.ico" alt="Icon" height={32} width={32} />
               </ThemeIcon>
               <Title order={3}>Spielehund</Title>
             </Group>
