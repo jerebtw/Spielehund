@@ -162,10 +162,18 @@ export default function JumpManGame() {
               <Loading />
             ) : (
               <>
-                <Center>
-                  <Title>Fehler: {`${currentImage}/${walkImages.length}`}</Title>
-                  <Title>Win/Lose: {gameStatsQuery.data?.at(0)?.Rate || 0}</Title>
-                </Center>
+                <Stack>
+                  <Center>
+                    <Title>
+                      Fehler: {`${currentImage}/${walkImages.length}`}
+                    </Title>
+                  </Center>
+                  <Center>
+                    <Title>
+                      Win/Lose: {gameStatsQuery.data?.at(0)?.Rate || 0}
+                    </Title>
+                  </Center>
+                </Stack>
 
                 <Center py="2%">
                   <Paper
