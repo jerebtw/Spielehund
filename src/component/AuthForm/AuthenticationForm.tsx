@@ -40,14 +40,14 @@ export function AuthenticationForm({ type }: { type: "login" | "register" }) {
     },
 
     validate: {
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Die E-Mail ist ungültige"),
       password: (val) =>
-        val.length <= 8
-          ? "Password should include at least 8 characters"
+        val.length < 8
+          ? "Das Passwort sollte mindestens 8 Zeichen enthalten"
           : null,
       passwordConfirm: (val, values) => {
         if (type === "register" && val !== values.password) {
-          return "Passwords do not match";
+          return "Die Passwörter stimmen nicht überein";
         }
 
         return null;
