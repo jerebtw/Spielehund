@@ -22,6 +22,7 @@ import { Record } from "pocketbase";
 import { useContext, useEffect, useState } from "react";
 import Keyboard from "../../../component/Keyboard";
 import Loading from "../../../component/Loading";
+import Header from "../../../component/Header";
 import { PocketBaseContext } from "../../../component/Pocketbase";
 
 interface Word extends Record {
@@ -131,6 +132,7 @@ export default function JumpManGame() {
         <title>JumpMan | Spielehund</title>
       </Head>
 
+      <Header />
       <Container pt="5%">
         <Card withBorder style={{ overflow: "scroll" }}>
           <Stack>
@@ -167,7 +169,9 @@ export default function JumpManGame() {
                     Fehler: {`${currentImage}/${walkImages.length}`}
                   </Title>
                   <Title order={2}>
-                    {`Win/Lose: ${(gameStatsQuery.data?.at(0)?.Rate || 0).toFixed(1)}`}
+                    {`Win/Lose: ${(
+                      gameStatsQuery.data?.at(0)?.Rate || 0
+                    ).toFixed(1)}`}
                   </Title>
                 </Group>
 
