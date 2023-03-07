@@ -111,14 +111,9 @@ export default function Keyboard({
         {getRow(letters[0])}
         {getRow(letters[1])}
         {getRow(letters[2])}
-        <Group spacing={4} grow>
-          <Button color={"red"} onClick={() => router.push("/")}>
-            Beenden
-          </Button>
-          <Button color={"green"} onClick={resetFunc}>
-            Neues Spiel
-          </Button>
-        </Group>
+        <Button color={"green"} onClick={resetFunc}>
+          Neues Spiel
+        </Button>
       </Stack>
     </Center>
   );
