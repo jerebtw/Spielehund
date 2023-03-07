@@ -132,7 +132,7 @@ export default function JumpManGame() {
         <title>JumpMan | Spielehund</title>
       </Head>
 
-      <Header />
+      <Header showLogin />
       <Container pt="5%">
         <Card withBorder style={{ overflow: "scroll" }}>
           <Stack>

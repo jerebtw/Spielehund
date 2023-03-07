@@ -16,7 +16,7 @@ export default function TodoPage() {
 
   return (
     <>
-      <Header />
+      <Header showLogin />
       <Container py="5%">
         <Card withBorder style={{ overflow: "scroll" }}>
           <Stack>
