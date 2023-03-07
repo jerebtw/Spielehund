@@ -191,7 +191,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
                 radius="xl"
                 size="md"
                 w="15%">
-                Search
+                Suche
               </Button>
             ) : (
               <ActionIcon
@@ -306,7 +306,7 @@ function LoginButtons() {
         variant="default"
         leftIcon={<IconLogin {...IconProps} />}
         onClick={() => router.push("/login")}>
-        Anmelden
+        Anmeldung
       </Button>
       <Button
         variant="default"
