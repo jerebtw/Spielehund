@@ -306,13 +306,13 @@ function LoginButtons() {
         variant="default"
         leftIcon={<IconLogin {...IconProps} />}
         onClick={() => router.push("/login")}>
-        Login
+        Anmelden
       </Button>
       <Button
         variant="default"
         leftIcon={<IconUserPlus {...IconProps} />}
         onClick={() => router.push("/register")}>
-        Register
+        Registrierung
       </Button>
     </>
   );
