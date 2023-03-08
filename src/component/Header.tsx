@@ -11,20 +11,22 @@ import {
   Menu,
   Paper,
   Stack,
-  Text, Title,
+  Text,
+  Title,
   Transition,
   UnstyledButton,
-  useMantineColorScheme
+  useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { useSpotlight } from "@mantine/spotlight";
 import {
   IconLogin,
-  IconMoon, IconSearch,
+  IconMoon,
+  IconSearch,
   IconSun,
   IconUser,
-  IconUserPlus
+  IconUserPlus,
 } from "@tabler/icons-react";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
@@ -156,7 +158,7 @@ export default function CustomHeader({ showLogin }: { showLogin?: boolean }) {
               />
             </Center>
           ),
-          onTrigger: () => {},
+          onTrigger: () => router.push(item.url),
         })),
       );
       spotlight.openSpotlight();
