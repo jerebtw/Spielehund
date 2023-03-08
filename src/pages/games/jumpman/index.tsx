@@ -137,29 +137,38 @@ export default function JumpManGame() {
         <Card withBorder style={{ overflow: "scroll" }}>
           <Stack>
             <Group position="apart">
-              <HoverCard width={280} shadow="md" withArrow withinPortal>
-                <HoverCard.Target>
-                  <ActionIcon color="gray" radius="xl" variant="outline">
-                    <IconInfoCircle size={18} />
-                  </ActionIcon>
-                </HoverCard.Target>
-                <HoverCard.Dropdown>
-                  <Text size="sm">
-                    In Jumpman wird ein zufälliges Wort gewählt, welches der
-                    Spieler erraten soll. Dazu kannst du einfach einen
-                    Buchstaben auswählen. Falls dieser im Wort vorkommt wird dir
-                    angezeigt an welchen Stellen, falls nicht ist das Mänchen
-                    einen Schritt näher am Tod. Schaffst du es das Wort heraus
-                    zu bekommen bevor das Mänchen vom Dach springt?
-                  </Text>
-                </HoverCard.Dropdown>
-              </HoverCard>
+              {!auth ? (
+                <HoverCard width={280} shadow="md" withArrow withinPortal>
+                  <HoverCard.Target>
+                    <ActionIcon color="gray" radius="xl" variant="outline">
+                      <IconInfoCircle size={18} />
+                    </ActionIcon>
+                  </HoverCard.Target>
+                  <HoverCard.Dropdown>
+                    <Text size="sm">
+                      In Jumpman wird ein zufälliges Wort gewählt, welches der
+                      Spieler erraten soll. Dazu kannst du einfach einen
+                      Buchstaben auswählen. Falls dieser im Wort vorkommt wird
+                      dir angezeigt an welchen Stellen, falls nicht ist das
+                      Mänchen einen Schritt näher am Tod. Schaffst du es das
+                      Wort heraus zu bekommen bevor das Mänchen vom Dach
+                      springt?
+                    </Text>
+                  </HoverCard.Dropdown>
+                </HoverCard>
+              ) : (
+                <div />
+              )}
               <Title order={3}>JumpMan</Title>
               <CloseButton onClick={() => router.push("/")} />
             </Group>
 
             {!auth ? (
-              <Button onClick={() => router.push("/login")}>Login</Button>
+              <>
+                Bevor du JumpMan spielen kannst, musst du dich zuerst
+                registrieren.
+                <Button onClick={() => router.push("/login")}>Anmelden</Button>
+              </>
             ) : wordListQuery.isLoading || gameStatsQuery.isLoading ? (
               <Loading />
             ) : (
