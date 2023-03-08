@@ -137,7 +137,7 @@ export default function JumpManGame() {
         <Card withBorder style={{ overflow: "scroll" }}>
           <Stack>
             <Group position="apart">
-              <HoverCard width={280} shadow="md" withArrow>
+              <HoverCard width={280} shadow="md" withArrow withinPortal>
                 <HoverCard.Target>
                   <ActionIcon color="gray" radius="xl" variant="outline">
                     <IconInfoCircle size={18} />
