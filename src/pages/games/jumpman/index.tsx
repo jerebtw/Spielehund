@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
   Title,
+  Box,
 } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -23,6 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import Keyboard from "../../../component/Keyboard";
 import Loading from "../../../component/Loading";
 import Header from "../../../component/Header";
+import { useQueryClient } from "@tanstack/react-query";
 import { PocketBaseContext } from "../../../component/Pocketbase";
 
 interface Word extends Record {
@@ -37,6 +39,7 @@ interface WinLose extends Record {
 
 export default function JumpManGame() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { pocketBase, auth, loading } = useContext(PocketBaseContext);
 
   const [send, setSend] = useState(false);
@@ -107,6 +110,7 @@ export default function JumpManGame() {
     setSelectedVal("");
     setCurrentImage(0);
     setSend(false);
+    queryClient.invalidateQueries({ queryKey: ["gameStats"] });
   }
 
   useEffect(() => {
@@ -164,11 +168,11 @@ export default function JumpManGame() {
             </Group>
 
             {!auth ? (
-              <>
+              <Box pt="16px">
                 Bevor du JumpMan spielen kannst, musst du dich zuerst
                 registrieren.
                 <Button onClick={() => router.push("/login")}>Anmelden</Button>
-              </>
+              </Box>
             ) : wordListQuery.isLoading || gameStatsQuery.isLoading ? (
               <Loading />
             ) : (
