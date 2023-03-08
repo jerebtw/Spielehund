@@ -168,11 +168,13 @@ export default function JumpManGame() {
             </Group>
 
             {!auth ? (
-              <Box pt="16px">
+              <Stack pt="16px">
+                <Text>
                 Bevor du JumpMan spielen kannst, musst du dich zuerst
                 registrieren.
+                </Text>
                 <Button onClick={() => router.push("/login")}>Anmelden</Button>
-              </Box>
+              </Stack>
             ) : wordListQuery.isLoading || gameStatsQuery.isLoading ? (
               <Loading />
             ) : (
