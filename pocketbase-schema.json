@@ -1,0 +1,331 @@
+[
+    {
+        "id": "3w8n2ijxppwrewo",
+        "name": "jumpmanWinLose",
+        "type": "view",
+        "system": false,
+        "schema": [
+            {
+                "id": "f9wgpeh1",
+                "name": "Wins",
+                "type": "json",
+                "system": false,
+                "required": false,
+                "options": {}
+            },
+            {
+                "id": "s2uavr5d",
+                "name": "Loses",
+                "type": "json",
+                "system": false,
+                "required": false,
+                "options": {}
+            },
+            {
+                "id": "9eiez0hb",
+                "name": "Rate",
+                "type": "json",
+                "system": false,
+                "required": false,
+                "options": {}
+            }
+        ],
+        "indexes": [],
+        "listRule": "id = @request.auth.id",
+        "viewRule": "id = @request.auth.id",
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {
+            "query": "SELECT\nid,\nWins,\nLoses,\nIIF(Loses = 0, Wins, COALESCE((CAST(Wins AS FLOAT) / Loses), 0)) as Rate\nFROM\n(\n    SELECT\n    user as id,\n    (SELECT COUNT(*) FROM jumpmanGames WHERE won = TRUE and topGames.user = user) as Wins,\n    (SELECT COUNT(*) FROM jumpmanGames WHERE won = FALSE and topGames.user = user) as Loses\n    FROM jumpmanGames topGames\n    GROUP BY user\n)"
+        }
+    },
+    {
+        "id": "_pb_users_auth_",
+        "name": "users",
+        "type": "auth",
+        "system": false,
+        "schema": [
+            {
+                "id": "uehqnt8y",
+                "name": "xp",
+                "type": "number",
+                "system": false,
+                "required": false,
+                "options": {
+                    "min": 0,
+                    "max": null
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `__pb_users_auth__created_idx` ON `users` (`created`)"
+        ],
+        "listRule": "id = @request.auth.id",
+        "viewRule": "id = @request.auth.id",
+        "createRule": "",
+        "updateRule": "id = @request.auth.id",
+        "deleteRule": "id = @request.auth.id",
+        "options": {
+            "allowEmailAuth": true,
+            "allowOAuth2Auth": false,
+            "allowUsernameAuth": false,
+            "exceptEmailDomains": null,
+            "manageRule": null,
+            "minPasswordLength": 8,
+            "onlyEmailDomains": null,
+            "requireEmail": true
+        }
+    },
+    {
+        "id": "u5je60bano3c8v5",
+        "name": "games",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "yfd1bgbi",
+                "name": "name",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "cnciua6z",
+                "name": "description",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "k3wfaigh",
+                "name": "url",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "khp0itqk",
+                "name": "genre",
+                "type": "relation",
+                "system": false,
+                "required": false,
+                "options": {
+                    "collectionId": "v7n9unm07he502d",
+                    "cascadeDelete": false,
+                    "minSelect": null,
+                    "maxSelect": null,
+                    "displayFields": null
+                }
+            },
+            {
+                "id": "f85enwyh",
+                "name": "titleImage",
+                "type": "file",
+                "system": false,
+                "required": false,
+                "options": {
+                    "maxSelect": 1,
+                    "maxSize": 5242880,
+                    "mimeTypes": [
+                        "image/jpg",
+                        "image/jpeg",
+                        "image/png",
+                        "image/svg+xml",
+                        "image/gif",
+                        "image/webp"
+                    ],
+                    "thumbs": [],
+                    "protected": false
+                }
+            },
+            {
+                "id": "zcxxsqod",
+                "name": "gameImages",
+                "type": "file",
+                "system": false,
+                "required": false,
+                "options": {
+                    "maxSelect": 10,
+                    "maxSize": 5242880,
+                    "mimeTypes": [
+                        "image/jpg",
+                        "image/jpeg",
+                        "image/png",
+                        "image/svg+xml",
+                        "image/gif",
+                        "image/webp"
+                    ],
+                    "thumbs": [],
+                    "protected": false
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `_u5je60bano3c8v5_created_idx` ON `games` (`created`)"
+        ],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {}
+    },
+    {
+        "id": "v7n9unm07he502d",
+        "name": "genres",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "q7gy7np7",
+                "name": "name",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `_v7n9unm07he502d_created_idx` ON \"genres\" (`created`)",
+            "CREATE UNIQUE INDEX \"idx_unique_q7gy7np7\" on \"genres\" (\"name\")"
+        ],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {}
+    },
+    {
+        "id": "h77jg6q8ni7gqrk",
+        "name": "jumpmanGames",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "wlyctppy",
+                "name": "word",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "rn6daan6",
+                "name": "won",
+                "type": "bool",
+                "system": false,
+                "required": false,
+                "options": {}
+            },
+            {
+                "id": "gayfnday",
+                "name": "user",
+                "type": "relation",
+                "system": false,
+                "required": false,
+                "options": {
+                    "collectionId": "_pb_users_auth_",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": []
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `_h77jg6q8ni7gqrk_created_idx` ON `jumpmanGames` (`created`)"
+        ],
+        "listRule": null,
+        "viewRule": null,
+        "createRule": "@request.data.user = @request.auth.id",
+        "updateRule": "@request.data.user = @request.auth.id",
+        "deleteRule": null,
+        "options": {}
+    },
+    {
+        "id": "caeyqthdtydn9it",
+        "name": "jumpmanWordlist",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "xoelyn7t",
+                "name": "content",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `_caeyqthdtydn9it_created_idx` ON `jumpmanWordlist` (`created`)",
+            "CREATE UNIQUE INDEX \"idx_unique_xoelyn7t\" on \"jumpmanWordlist\" (\"content\")"
+        ],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {}
+    },
+    {
+        "id": "5u3blot9xpx4hk2",
+        "name": "doc",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "2jzhfqby",
+                "name": "field",
+                "type": "file",
+                "system": false,
+                "required": false,
+                "options": {
+                    "maxSelect": 1,
+                    "maxSize": 5242880,
+                    "mimeTypes": [],
+                    "thumbs": [],
+                    "protected": false
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE INDEX `_5u3blot9xpx4hk2_created_idx` ON `doc` (`created`)"
+        ],
+        "listRule": null,
+        "viewRule": null,
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {}
+    }
+]
